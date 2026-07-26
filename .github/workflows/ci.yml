@@ -1,5 +1,6 @@
 name: CI
 
+# T06 CI Gate Before Deployment
 on:
   pull_request:
   push:
