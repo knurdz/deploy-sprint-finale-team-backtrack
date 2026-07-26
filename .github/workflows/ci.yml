@@ -155,3 +155,16 @@ jobs:
           docker build -t team-site:production -f team-site/Dockerfile team-site/
           echo "Docker production image built successfully: deploy-sprint/team-site:$GITHUB_SHA"
 
+      - name: Run post-deploy smoke tests
+        env:
+          PUBLIC_URL: ${{ vars.PUBLIC_URL || vars.DOMAIN_PUBLIC_URL || secrets.PUBLIC_URL || vars.IP_PUBLIC_URL || 'http://20.115.162.33' }}
+        run: |
+          set -euo pipefail
+          base_url="${PUBLIC_URL:?PUBLIC_URL required}"
+          echo "Running T19 post-deploy smoke tests against: $base_url"
+          curl --fail "$base_url/"
+          curl --fail "$base_url/health"
+          curl --fail "$base_url/status"
+          echo "T19 smoke tests passed"
+
+

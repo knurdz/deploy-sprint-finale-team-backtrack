@@ -49,7 +49,7 @@ Use this section for short public notes and links. Full task instructions and ch
 | T16 | #32 | team-site/scripts/send-email-alert.mjs | Integrated Resend transactional email alert script with safe RESEND_API_KEY secret handling and status evidence |
 | T17 |  |  |  |
 | T18 | #32 | .github/workflows/ci.yml | Built Docker container image deploy-sprint/team-site:$GITHUB_SHA and submitted containerized deploy request on APP_PORT 8080 |
-| T19 |  |  |  |
+| T19 | #34 | .github/workflows/deploy.yml | Implemented post-deploy smoke tests validating /, /health, and /status with non-zero failure exit code |
 | T20 |  |  |  |
 | T21 |  |  |  |
 | T22 |  |  |  |
