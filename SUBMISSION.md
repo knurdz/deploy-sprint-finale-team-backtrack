@@ -46,6 +46,10 @@ Use this section for short public notes and links. Full task instructions and ch
 | T14 | #28 | team-site/Dockerfile | Created multi-stage production Dockerfile using node:20-alpine and nginx:alpine |
 | T15 | #30 | team-site/src/utils/featureFlags.ts | Runtime feature flag FEATURE_SHOW_INSIGHTS integrated with safe redacted status evidence |
 
+| T16 |  |  |  |
+| T17 | TBD | scripts/deploy-release.sh, .github/workflows/t17-health-gated-deploy.yml | Health-gated symlink deploy: candidate release created at releases/$SHA, health-checked before current symlink switch, known-good release retained on failure |
+| T18 |  |  |  |
+| T19 |  |  |  |
 | T16 | #32 | team-site/scripts/send-email-alert.mjs | Integrated Resend transactional email alert script with safe RESEND_API_KEY secret handling and status evidence |
 | T17 |  |  |  |
 | T18 | #32 | .github/workflows/ci.yml | Built Docker container image deploy-sprint/team-site:$GITHUB_SHA and submitted containerized deploy request on APP_PORT 8080 |
