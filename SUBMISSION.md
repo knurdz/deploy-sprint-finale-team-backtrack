@@ -62,7 +62,7 @@ Use this section for short public notes and links. Full task instructions and ch
 | T21 | [T21] Least-Privilege And Concurrency | .github/workflows/deploy.yml | Configured least-privilege permissions (contents: read, actions: read) and deploy-backtrack-production concurrency group with safe cancellation behavior |
 | T22 |  |  |  |
 | T23 | [T23] Release Evidence Manifest | release-manifest.json | Generated release evidence manifest containing commit SHA, artifact identity, workflow run ID, deploy time, and task markers |
-| T24 | #46 | team-site/src/components/ContactForm.tsx, team-site/src/utils/turnstile.ts | Protected contact form with Cloudflare Turnstile, verified token in pipeline, and exposed safe Turnstile status evidence |
+| T24 | #49 | team-site/src/components/ContactForm.tsx, team-site/src/utils/turnstile.ts | Protected contact form with Cloudflare Turnstile, verified token in pipeline, and exposed safe Turnstile status evidence |
 | T25 |  |  |  |
 | T26 |  |  |  |
 | T27 |  |  |  |
