@@ -65,7 +65,7 @@ Use this section for short public notes and links. Full task instructions and ch
 | T24 |  |  |  |
 | T25 | #45 | team-site/src/utils/metrics.ts | Cherry-picked organizer hotfix commit 91e51ab from task-assets/hotfix applying focused metrics calculation fix |
 | T26 |  |  |  |
-| T27 | Pending | docs/incidents/seeded-secret-leak.md | Removed seeded fake secret leak, integrated automated T27 secret scanner in CI workflow, and documented secret rotation evidence |
+| T27 | #50 | docs/incidents/seeded-secret-leak.md | Removed seeded fake secret leak, integrated automated T27 secret scanner in CI workflow, and documented secret rotation evidence |
 | T28 |  |  |  |
 | T29 |  |  |  |
 | T30 | #40 | team-site/src/utils/sentry.ts | Integrated @sentry/react monitoring SDK with SENTRY_DSN, SENTRY_AUTH_TOKEN, SENTRY_ORG (knurdz), and SENTRY_PROJECT (deploy-sprint-finals) |
