@@ -44,7 +44,7 @@ Use this section for short public notes and links. Full task instructions and ch
 | T12 |  |  |  |
 | T13 |  |  |  |
 | T14 |  |  |  |
-| T15 |  |  |  |
+| T15 | #16 | Safe feature flag evidence | Runtime feature flag FEATURE_SHOW_INSIGHTS integrated with safe redacted status |
 | T16 |  |  |  |
 | T17 |  |  |  |
 | T18 |  |  |  |
