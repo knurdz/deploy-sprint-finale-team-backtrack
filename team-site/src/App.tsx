@@ -33,7 +33,7 @@ function StatusPage() {
       <ul>
         <li><strong>Team Name:</strong> {import.meta.env.VITE_TEAM_NAME || 'Unknown'}</li>
         <li><strong>Commit SHA:</strong> {import.meta.env.VITE_COMMIT_SHA || 'Unknown'}</li>
-        <li><strong>Task Marker:</strong> T01, T03, T15</li>
+        <li><strong>Task Marker:</strong> T01, T03, T15, T24</li>
         <li><strong>Artifact ID:</strong> {import.meta.env.VITE_ARTIFACT_NAME || 'Unknown'}</li>
         <li><strong>Workflow Run:</strong> {import.meta.env.VITE_WORKFLOW_RUN || 'Unknown'}</li>
         <li><strong>Feature Flags:</strong> {JSON.stringify(flags)}</li>

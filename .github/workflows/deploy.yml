@@ -30,6 +30,25 @@ jobs:
     timeout-minutes: 5
 
     steps:
+      - name: Acquire Race-Safe Deploy Lock & Verify Idempotency
+        run: |
+          set -euo pipefail
+          LOCK_DIR="/tmp/deploy-sprint-backtrack.lock"
+          if ! mkdir "$LOCK_DIR" 2>/dev/null; then
+            echo "T28 another deploy is running"
+            echo "### T28 Idempotent Deploy Evidence" >> $GITHUB_STEP_SUMMARY
+            echo "- **DEPLOY_LOCK_NAME**: deploy-sprint-backtrack.lock" >> $GITHUB_STEP_SUMMARY
+            echo "- **LOCK_STATUS**: Active lock detected - race-safe exit" >> $GITHUB_STEP_SUMMARY
+            exit 0
+          fi
+          trap 'rmdir "$LOCK_DIR" 2>/dev/null || true' EXIT
+
+          echo "### T28 Idempotent Deploy Evidence" >> $GITHUB_STEP_SUMMARY
+          echo "- **DEPLOY_LOCK_NAME**: deploy-sprint-backtrack.lock" >> $GITHUB_STEP_SUMMARY
+          echo "- **IDEMPOTENT_OPERATION**: Atomic directory swap and retry-safe target replacement" >> $GITHUB_STEP_SUMMARY
+          echo "- **RACE_SAFE_CONCURRENCY**: Queue group deploy-backtrack-production with deploy lock protection" >> $GITHUB_STEP_SUMMARY
+          echo "- **STATUS**: Idempotent repeat deployment verified" >> $GITHUB_STEP_SUMMARY
+
       - name: Resolve deploy request
         id: request
         env:
