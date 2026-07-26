@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "build": "tsc --noEmit && node scripts/check-release-readiness.mjs && vite build",
+    "test": "node scripts/check-release-readiness.mjs",
     "preview": "vite preview",
     "lint": "tsc --noEmit"
   },

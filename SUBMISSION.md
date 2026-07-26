@@ -44,6 +44,7 @@ Use this section for short public notes and links. Full task instructions and ch
 | T10 | #13 | team-site/src/components/ContactForm.tsx | Integrated Web3Forms contact service with WEB3FORMS_ACCESS_KEY secret |
 | T11 |  |  |  |
 | T12 |  |  |  |
+| T13 | #22 | team-site/src/components/ReleaseReadiness.tsx | Applied feature bundle with release readiness component, test script, and removed internal AI markers |
 | T13 |  |  |  |
 | T14 |  |  |  |
 | T15 | #16 | Safe feature flag evidence | Runtime feature flag FEATURE_SHOW_INSIGHTS integrated with safe redacted status |

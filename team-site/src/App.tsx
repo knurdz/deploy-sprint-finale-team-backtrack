@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { WeatherWidget } from './components/WeatherWidget';
 import { ContactForm } from './components/ContactForm';
+import { ReleaseReadiness } from './components/ReleaseReadiness';
 import { CourseCard } from './components/CourseCard';
 import { DeadlineBoard } from './components/DeadlineBoard';
 import { LearningVelocity } from './components/LearningVelocity';
@@ -153,6 +154,7 @@ export function App() {
           <DeadlineBoard deadlines={deadlineCards} />
         </section>
 
+        <ReleaseReadiness />
         {flags.showInsights && (
           <section className="panel" id="insights" style={{ marginTop: '1.5rem', padding: '1.5rem', borderRadius: '12px', background: 'var(--surface-color, #1e293b)', color: 'var(--text-color, #f8fafc)' }}>
             <div className="panelHeader">
