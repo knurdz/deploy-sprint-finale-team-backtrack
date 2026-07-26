@@ -4,25 +4,25 @@ Complete this file on `main` as tasks are completed. Do not paste secrets, priva
 
 ## Team
 
-- Team name:
-- Team members:
-- Live IP URL:
-- Assigned domain URL:
-- Repository URL:
+- Team name: backtrack
+- Team members: inusha-thathsara, sadissanushka, jayanathsp-24, kaushalyawijesiri0-lang
+- Live IP URL: http://20.115.162.33
+- Assigned domain URL: https://backtrack.deploysprint-finals.knurdz.org
+- Repository URL: https://github.com/knurdz/deploy-sprint-finale-team-backtrack
 
 ## Release Evidence
 
-- Current production commit:
-- Current artifact/image identifier:
-- Current deployment workflow run:
-- Current release manifest path or URL:
-- Notes on live evidence or fallback evidence:
+- Current production commit: 363ac6cc483d574662e5c726b64c9417e3bd9b1f
+- Current artifact/image identifier: site-dist-363ac6cc483d574662e5c726b64c9417e3bd9b1f
+- Current deployment workflow run: 30192244792
+- Current release manifest path or URL: http://20.115.162.33/status
+- Notes on live evidence or fallback evidence: All live endpoints (/health, /status, domain, contact service, weather widget) active and healthy.
 
 ## Score Summary
 
-- Automated points out of 800:
-- Judge points out of 200:
-- Final total points out of 1000:
+- Automated points out of 800: Pending dashboard calculation
+- Judge points out of 200: Pending judge evaluation
+- Final total points out of 1000: Pending
 
 ## Completed Tasks
 
@@ -30,9 +30,9 @@ Use this section for short public notes and links. Full task instructions and ch
 
 | Task | PR | Evidence | Notes |
 | --- | --- | --- | --- |
-| T01 | #3 | http://20.115.162.33/health | Deployed team site with health and status evidence |
-| T02 |  |  |  |
-| T03 |  |  |  |
+| T01 | #5 | http://20.115.162.33/health | Deployed team site with health and status evidence |
+| T02 | #6 | https://backtrack.deploysprint-finals.knurdz.org/status | Connected custom domain with A record, TXT challenge, and status metadata |
+| T03 | #7 | .github/workflows/deploy.yml | Configured single artifact build and deployment flow |
 | T04 | #12 | .github/workflows/rollback.yml | Implemented workflow_dispatch rollback workflow with release_ref input |
 | T05 |  |  |  |
 | T06 | #8 | .github/workflows/ci.yml | Configured CI build gate with Node 20, npm ci, npm run build, and site-dist artifact upload |
@@ -40,10 +40,12 @@ Use this section for short public notes and links. Full task instructions and ch
 | T08 | [T08] Rebase Organizer Feature | team-site/src/components/LearningVelocity.tsx | Rebased organizer feature branch task-assets/rebase-feature bringing in LearningVelocity component |
 | T09 |  |  |  |
 | T10 | #14 | Safe provider evidence & contact form | Web3Forms contact service integrated with WEB3FORMS_ACCESS_KEY secret |
+| T11 | #18 | .github/workflows/preview.yml | Configured PR preview workflow publishing preview artifact and workflow summary evidence |
+| T10 | #13 | team-site/src/components/ContactForm.tsx | Integrated Web3Forms contact service with WEB3FORMS_ACCESS_KEY secret |
 | T11 |  |  |  |
 | T12 |  |  |  |
 | T13 |  |  |  |
-| T14 |  |  |  |
+| T14 | #18 | team-site/Dockerfile | Created multi-stage production Dockerfile using node:20-alpine and nginx:alpine |
 | T15 |  |  |  |
 | T16 |  |  |  |
 | T17 |  |  |  |
