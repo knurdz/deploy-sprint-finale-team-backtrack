@@ -35,7 +35,7 @@ Use this section for short public notes and links. Full task instructions and ch
 | T03 | #7 | .github/workflows/deploy.yml | Configured single artifact build and deployment flow |
 | T04 | #12 | .github/workflows/rollback.yml | Implemented workflow_dispatch rollback workflow with release_ref input |
 | T05 |  |  |  |
-| T06 | #8 | .github/workflows/ci.yml | Configured CI build gate with Node 20, npm ci, npm run build, and site-dist artifact upload |
+| T06 | #31 | .github/workflows/ci.yml | Configured CI build gate with Node 20, npm ci, npm run build, and site-dist artifact upload |
 | T07 | #29 | team-site/src/components/WeatherWidget.tsx | Integrated OpenWeather widget with deploy-time API key fetching and safe weather status evidence |
 | T08 | #20 | team-site/src/components/LearningVelocity.tsx | Rebased organizer feature branch task-assets/rebase-feature bringing in LearningVelocity component |
 | T09 | #25 | team-site/src/data/deadlines.ts | Merged task-assets/conflict-merge preserving both repo-setup-checkpoint and merge-conflict-lab deadline cards |
