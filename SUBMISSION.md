@@ -46,7 +46,7 @@ Use this section for short public notes and links. Full task instructions and ch
 | T14 | #28 | team-site/Dockerfile | Created multi-stage production Dockerfile using node:20-alpine and nginx:alpine |
 | T15 | #30 | team-site/src/utils/featureFlags.ts | Runtime feature flag FEATURE_SHOW_INSIGHTS integrated with safe redacted status evidence |
 
-| T16 | Pending | team-site/scripts/send-email-alert.mjs | Integrated Resend transactional email alert script with safe RESEND_API_KEY secret handling and status evidence |
+| T16 | #32 | team-site/scripts/send-email-alert.mjs | Integrated Resend transactional email alert script with safe RESEND_API_KEY secret handling and status evidence |
 | T17 |  |  |  |
 | T18 |  |  |  |
 | T19 |  |  |  |
