@@ -63,7 +63,7 @@ Use this section for short public notes and links. Full task instructions and ch
 | T22 |  |  |  |
 | T23 | [T23] Release Evidence Manifest | release-manifest.json | Generated release evidence manifest containing commit SHA, artifact identity, workflow run ID, deploy time, and task markers |
 | T24 |  |  |  |
-| T25 |  |  |  |
+| T25 | Pending | team-site/src/utils/metrics.ts | Cherry-picked organizer hotfix commit 91e51ab from task-assets/hotfix applying focused metrics calculation fix |
 | T26 |  |  |  |
 | T27 |  |  |  |
 | T28 |  |  |  |
