@@ -54,7 +54,7 @@ Use this section for short public notes and links. Full task instructions and ch
 | T19 | #34 | .github/workflows/deploy.yml | Implemented post-deploy smoke tests validating /, /health, and /status with non-zero failure exit code |
 | T20 |  |  |  |
 | T21 |  |  |  |
-| T22 | Pending | docker-compose.yml | Created docker-compose.yml for app runtime using project name deploy-sprint-backtrack and placeholder .env template |
+| T22 | #38 | docker-compose.yml | Created docker-compose.yml for app runtime using project name deploy-sprint-backtrack and placeholder .env template |
 | T23 | [T23] Release Evidence Manifest | release-manifest.json | Generated release evidence manifest containing commit SHA, artifact identity, workflow run ID, deploy time, and task markers |
 | T24 |  |  |  |
 | T25 |  |  |  |
