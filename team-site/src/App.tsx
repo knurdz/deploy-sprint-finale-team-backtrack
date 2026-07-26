@@ -6,11 +6,13 @@ import {
   CalendarCheck,
   GitBranch,
   GraduationCap,
+  Mail,
   Search,
   ShieldCheck,
   Users,
 } from 'lucide-react';
 import { WeatherWidget } from './components/WeatherWidget';
+import { ContactForm } from './components/ContactForm';
 import { CourseCard } from './components/CourseCard';
 import { DeadlineBoard } from './components/DeadlineBoard';
 import { StatCard } from './components/StatCard';
@@ -71,6 +73,10 @@ export function App() {
           <a href="#teams">
             <Users size={18} />
             Teams
+          </a>
+          <a href="#contact">
+            <Mail size={18} />
+            Contact Support
           </a>
         </nav>
 
@@ -139,6 +145,8 @@ export function App() {
 
           <DeadlineBoard deadlines={deadlineCards} />
         </section>
+
+        <ContactForm />
       </section>
     </main>
   );

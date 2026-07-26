@@ -39,7 +39,8 @@ Use this section for short public notes and links. Full task instructions and ch
 | T07 | #14 | team-site/src/components/WeatherWidget.tsx | Integrated OpenWeather widget with deploy-time API key fetching and safe weather status evidence |
 | T08 |  |  |  |
 | T09 |  |  |  |
-| T10 |  |  |  |
+| T10 | PR pending | Safe provider evidence & contact form | Web3Forms contact service integrated with WEB3FORMS_ACCESS_KEY secret |
+<!-- AI-REVIEW-MARKER: participant must manually remove this marker -->
 | T11 |  |  |  |
 | T12 |  |  |  |
 | T13 |  |  |  |
