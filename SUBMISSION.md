@@ -35,7 +35,7 @@ Use this section for short public notes and links. Full task instructions and ch
 | T03 |  |  |  |
 | T04 |  |  |  |
 | T05 |  |  |  |
-| T06 |  |  |  |
+| T06 | #8 | .github/workflows/ci.yml | Configured CI build gate with Node 20, npm ci, npm run build, and site-dist artifact upload |
 | T07 |  |  |  |
 | T08 |  |  |  |
 | T09 |  |  |  |
