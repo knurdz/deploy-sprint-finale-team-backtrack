@@ -53,8 +53,8 @@ fi
 ###############################################################################
 # 4. Point temporary "candidate" symlink at the new release
 ###############################################################################
-log "Symlinking candidate -> ${CANDIDATE_DIR}"
-ln -sfn "${CANDIDATE_DIR}" "${RELEASE_ROOT}/candidate"
+log "Symlinking candidate -> ${COMMIT_SHA}"
+ln -sfn "${COMMIT_SHA}" "${RELEASE_ROOT}/candidate"
 
 ###############################################################################
 # 5. Health-check the candidate
@@ -92,7 +92,7 @@ done
 # 6/7. Switch traffic or keep previous release
 ###############################################################################
 if [ "${HEALTH_OK}" = true ]; then
-  log "Health gate PASSED – switching current symlink to ${CANDIDATE_DIR}"
+  log "Health gate PASSED – switching current symlink to ${COMMIT_SHA}"
 
   # Record previous release for audit
   if [ -L "${RELEASE_ROOT}/current" ]; then
@@ -103,7 +103,7 @@ if [ "${HEALTH_OK}" = true ]; then
   fi
 
   # Atomic symlink switch
-  ln -sfn "${CANDIDATE_DIR}" "${RELEASE_ROOT}/current"
+  ln -sfn "${COMMIT_SHA}" "${RELEASE_ROOT}/current"
 
   # Clean up temporary candidate pointer
   rm -f "${RELEASE_ROOT}/candidate"

@@ -72,11 +72,11 @@ jobs:
           ls -la releases/current
           CURRENT_TARGET=$(readlink releases/current)
           echo "current -> ${CURRENT_TARGET}"
-          if [ "${CURRENT_TARGET}" != "releases/${{ github.sha }}" ]; then
-            echo "::error::current symlink does not point to expected release"
+          if [ "${CURRENT_TARGET}" != "${{ github.sha }}" ] && [ "${CURRENT_TARGET}" != "releases/${{ github.sha }}" ]; then
+            echo "::error::current symlink does not point to expected release: ${CURRENT_TARGET}"
             exit 1
           fi
-          echo "✓ current symlink correctly points to releases/${{ github.sha }}"
+          echo "✓ current symlink correctly points to target: ${CURRENT_TARGET}"
 
       # ── Simulate failure scenario for evidence ────────────────────
       - name: "T17 – Simulate failed deploy (bad health)"
