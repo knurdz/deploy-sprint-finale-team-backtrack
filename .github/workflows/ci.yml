@@ -40,11 +40,13 @@ jobs:
           VITE_ARTIFACT_NAME: site-dist-${{ github.sha }}
           VITE_WORKFLOW_RUN: ${{ github.run_id }}
           VITE_TEAM_NAME: backtrack
+          VITE_PUBLIC_DEPLOY_LABEL: ${{ vars.PUBLIC_DEPLOY_LABEL || 'Deploy Sprint Finale' }}
         run: npm run build
         working-directory: team-site
 
       - name: Generate Status JSON
         run: |
+          mkdir -p team-site/dist
           cat <<EOF > team-site/dist/status.json
           {
             "team": "backtrack",
@@ -54,9 +56,6 @@ jobs:
             "task": "T03"
           }
           EOF
-          VITE_PUBLIC_DEPLOY_LABEL: ${{ vars.PUBLIC_DEPLOY_LABEL || 'Deploy Sprint Finale' }}
-        run: npm run build
-        working-directory: team-site
 
       - name: Write safe status evidence
         run: |
