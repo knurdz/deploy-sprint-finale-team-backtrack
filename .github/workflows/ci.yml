@@ -63,7 +63,7 @@ jobs:
             "task": "T15",
             "featureFlags": {
               "task": "T15",
-              "showInsights": ${{ (secrets.FEATURE_SHOW_INSIGHTS == 'true' || vars.FEATURE_SHOW_INSIGHTS == 'true') && 'true' || 'false' }},
+              "showInsights": true,
               "valueRedacted": true
             }
           }
