@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Activity,
   Bell,
@@ -17,9 +18,26 @@ import { deadlineCards } from './data/deadlines';
 import { sprintStats } from './data/stats';
 import { getAverageProgress } from './utils/metrics';
 
-export function App() {
-  const averageProgress = getAverageProgress(courses);
+function StatusPage() {
+  return (
+    <div style={{ padding: '2rem' }}>
+      <h1>System Status</h1>
+      <ul>
+        <li><strong>Team Name:</strong> {import.meta.env.VITE_TEAM_NAME || 'Unknown'}</li>
+        <li><strong>Commit SHA:</strong> {import.meta.env.VITE_COMMIT_SHA || 'Unknown'}</li>
+        <li><strong>Task Marker:</strong> T01, T03</li>
+        <li><strong>Artifact ID:</strong> {import.meta.env.VITE_ARTIFACT_NAME || 'Unknown'}</li>
+        <li><strong>Workflow Run:</strong> {import.meta.env.VITE_WORKFLOW_RUN || 'Unknown'}</li>
+      </ul>
+    </div>
+  );
+}
 
+export function App() {
+  if (typeof window !== 'undefined' && window.location.pathname === '/status') {
+    return <StatusPage />;
+  }
+  const averageProgress = getAverageProgress(courses);
   return (
     <main className="shell">
       <aside className="sidebar" aria-label="Primary">

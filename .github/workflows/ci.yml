@@ -36,9 +36,24 @@ jobs:
       - name: Build
         env:
           VITE_PUBLIC_URL: ${{ vars.PUBLIC_URL || vars.DOMAIN_PUBLIC_URL || secrets.PUBLIC_URL || vars.IP_PUBLIC_URL }}
+          VITE_COMMIT_SHA: ${{ github.sha }}
+          VITE_ARTIFACT_NAME: site-dist-${{ github.sha }}
+          VITE_WORKFLOW_RUN: ${{ github.run_id }}
+          VITE_TEAM_NAME: backtrack
         run: npm run build
         working-directory: team-site
 
+      - name: Generate Status JSON
+        run: |
+          cat <<EOF > team-site/dist/status.json
+          {
+            "team": "backtrack",
+            "commit": "${{ github.sha }}",
+            "artifact": "site-dist-${{ github.sha }}",
+            "workflowRun": "${{ github.run_id }}",
+            "task": "T03"
+          }
+          EOF
       - name: Upload dist artifact
         uses: actions/upload-artifact@v4
         with:
