@@ -106,7 +106,7 @@ if [ "${HEALTH_OK}" = true ]; then
   ln -sfn "${COMMIT_SHA}" "${RELEASE_ROOT}/current"
 
   # Clean up temporary candidate pointer
-  rm -f "${RELEASE_ROOT}/candidate"
+  rm -rf "${RELEASE_ROOT}/candidate"
 
   log "Deploy SUCCESS – current now points to ${CANDIDATE_DIR}"
   echo "DEPLOY_STATUS=success" >> "${GITHUB_OUTPUT:-/dev/null}"
@@ -114,7 +114,7 @@ else
   warn "Health gate FAILED – keeping previous release as current"
 
   # Remove candidate symlink but keep the directory for inspection
-  rm -f "${RELEASE_ROOT}/candidate"
+  rm -rf "${RELEASE_ROOT}/candidate"
 
   if [ -L "${RELEASE_ROOT}/current" ]; then
     PREV=$(readlink "${RELEASE_ROOT}/current")
