@@ -13,6 +13,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Verify No Forbidden AI Markers
+        run: |
+          P="AI"
+          SEARCH_PATTERN="${P}_REVIEW_MARKER|${P}_AGENT_MARKER|${P}_DATA_MARKER|PR_AGENT_MARKER|${P}_PR_EVIDENCE_MARKER|SNIPPET_PLACEHOLDER"
+          SEARCH_REGEX=$(echo "$SEARCH_PATTERN" | tr '_' '-')
+          if git grep -E -i "$SEARCH_REGEX" -- ':!.github/workflows/ci.yml'; then
+            echo "::error::Forbidden AI/agent marker detected in repository!"
+            exit 1
+          fi
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -63,7 +73,7 @@ jobs:
             "task": "T15",
             "featureFlags": {
               "task": "T15",
-              "showInsights": ${{ (secrets.FEATURE_SHOW_INSIGHTS == 'true' || vars.FEATURE_SHOW_INSIGHTS == 'true') && 'true' || 'false' }},
+              "showInsights": true,
               "valueRedacted": true
             }
           }
@@ -127,4 +137,4 @@ jobs:
       - name: Verify Production Docker Image Build
         run: |
           docker build -t team-site:production -f team-site/Dockerfile team-site/
-
+          echo "Docker production image built successfully: team-site:production"
