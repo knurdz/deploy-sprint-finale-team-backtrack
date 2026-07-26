@@ -62,7 +62,7 @@ Use this section for short public notes and links. Full task instructions and ch
 | T27 |  |  |  |
 | T28 |  |  |  |
 | T29 |  |  |  |
-| T30 | Pending | team-site/src/utils/sentry.ts | Integrated @sentry/react monitoring SDK with SENTRY_DSN, SENTRY_AUTH_TOKEN, SENTRY_ORG (knurdz), and SENTRY_PROJECT (deploy-sprint-finals) |
+| T30 | #40 | team-site/src/utils/sentry.ts | Integrated @sentry/react monitoring SDK with SENTRY_DSN, SENTRY_AUTH_TOKEN, SENTRY_ORG (knurdz), and SENTRY_PROJECT (deploy-sprint-finals) |
 
 ## Public Notes
 
