@@ -63,7 +63,7 @@ Use this section for short public notes and links. Full task instructions and ch
 | T26 |  |  |  |
 | T27 |  |  |  |
 | T28 |  |  |  |
-| T29 |  |  |  |
+| T29 | [T29] Disaster Recovery From Actions Only | .github/workflows/disaster-recovery.yml | Implemented Actions-only disaster recovery workflow with recovery_ref input, step summary evidence, and zero direct VPS editing |
 | T30 |  |  |  |
 
 ## Public Notes
