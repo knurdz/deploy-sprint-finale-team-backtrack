@@ -56,7 +56,7 @@ Use this section for short public notes and links. Full task instructions and ch
 | T23 |  |  |  |
 | T24 |  |  |  |
 | T25 |  |  |  |
-| T26 |  |  |  |
+| T26 | TBD | .github/workflows/deploy-broken.yml, docs/incidents/broken-deploy-log.md | Recovered from broken deploy rehearsal failure (build vs team-site/dist path mismatch) via Actions recovery workflow |
 | T27 |  |  |  |
 | T28 |  |  |  |
 | T29 |  |  |  |
