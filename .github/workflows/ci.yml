@@ -163,5 +163,4 @@ jobs:
           docker build -t team-site:production -f team-site/Dockerfile team-site/
           echo "Docker production image built successfully: deploy-sprint/team-site:$GITHUB_SHA"
 
-# AI-REVIEW-MARKER: participant must manually remove this marker
 
