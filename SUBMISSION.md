@@ -39,6 +39,8 @@ Use this section for short public notes and links. Full task instructions and ch
 | T07 | #17 | team-site/src/components/WeatherWidget.tsx | Integrated OpenWeather widget with deploy-time API key fetching and safe weather status evidence |
 | T08 |  |  |  |
 | T09 |  |  |  |
+| T10 | #14 | Safe provider evidence & contact form | Web3Forms contact service integrated with WEB3FORMS_ACCESS_KEY secret |
+| T11 | #18 | .github/workflows/preview.yml | Configured PR preview workflow publishing preview artifact and workflow summary evidence |
 | T10 | #13 | team-site/src/components/ContactForm.tsx | Integrated Web3Forms contact service with WEB3FORMS_ACCESS_KEY secret |
 | T11 |  |  |  |
 | T12 |  |  |  |
