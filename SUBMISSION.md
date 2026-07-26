@@ -33,14 +33,13 @@ Use this section for short public notes and links. Full task instructions and ch
 | T01 | #3 | http://20.115.162.33/health | Deployed team site with health and status evidence |
 | T02 |  |  |  |
 | T03 |  |  |  |
-| T04 | [T04] Rollback To Known-Good Release | .github/workflows/rollback.yml | Implemented workflow_dispatch rollback workflow with release_ref input |
+| T04 | #12 | .github/workflows/rollback.yml | Implemented workflow_dispatch rollback workflow with release_ref input |
 | T05 |  |  |  |
 | T06 | #8 | .github/workflows/ci.yml | Configured CI build gate with Node 20, npm ci, npm run build, and site-dist artifact upload |
 | T07 | #14 | team-site/src/components/WeatherWidget.tsx | Integrated OpenWeather widget with deploy-time API key fetching and safe weather status evidence |
 | T08 |  |  |  |
 | T09 |  |  |  |
-| T10 | PR pending | Safe provider evidence & contact form | Web3Forms contact service integrated with WEB3FORMS_ACCESS_KEY secret |
-<!-- AI-REVIEW-MARKER: participant must manually remove this marker -->
+| T10 | #14 | Safe provider evidence & contact form | Web3Forms contact service integrated with WEB3FORMS_ACCESS_KEY secret |
 | T11 |  |  |  |
 | T12 |  |  |  |
 | T13 |  |  |  |
