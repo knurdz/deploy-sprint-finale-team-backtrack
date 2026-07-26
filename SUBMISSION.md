@@ -47,7 +47,7 @@ Use this section for short public notes and links. Full task instructions and ch
 | T12 |  |  |  |
 | T13 | #22 | team-site/src/components/ReleaseReadiness.tsx | Applied feature bundle with release readiness component, test script, and removed internal AI markers |
 | T13 |  |  |  |
-| T14 |  |  |  |
+| T14 | #25 | team-site/Dockerfile | Created multi-stage production Dockerfile using node:20-alpine and nginx:alpine |
 | T15 | #16 | Safe feature flag evidence | Runtime feature flag FEATURE_SHOW_INSIGHTS integrated with safe redacted status |
 | T14 | #18 | team-site/Dockerfile | Created multi-stage production Dockerfile using node:20-alpine and nginx:alpine |
 | T15 |  |  |  |
