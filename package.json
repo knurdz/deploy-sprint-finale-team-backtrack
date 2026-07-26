@@ -11,5 +11,8 @@
     "team:dev": "npm --prefix team-site run dev",
     "team:build": "npm --prefix team-site run build",
     "team:lint": "npm --prefix team-site run lint"
+  },
+  "dependencies": {
+    "dependencies": "^0.0.1"
   }
 }

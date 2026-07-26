@@ -90,6 +90,7 @@ jobs:
                   "sha": os.environ["TEAM_SHA"],
                   "branch": os.environ["TEAM_BRANCH"],
                   "source_run_id": os.environ["SOURCE_RUN_ID"],
+                  "artifact": f"site-dist-{os.environ['TEAM_SHA']}"
               },
           }
 
@@ -105,3 +106,11 @@ jobs:
             --data @payload.json
 
           echo "Requested organizer deployment for ${TEAM_REPO}@${TEAM_SHA}."
+      - name: Generate Fallback Evidence
+        env:
+          TEAM_SHA: ${{ steps.request.outputs.sha }}
+          SOURCE_RUN_ID: ${{ steps.request.outputs.source_run_id }}
+        run: |
+          echo "### T03 Deploy Request Evidence" >> $GITHUB_STEP_SUMMARY
+          echo "- **STATUS_FIELD_ARTIFACT**: site-dist-${TEAM_SHA}" >> $GITHUB_STEP_SUMMARY
+          echo "- **STATUS_FIELD_WORKFLOW_RUN**: ${SOURCE_RUN_ID}" >> $GITHUB_STEP_SUMMARY
