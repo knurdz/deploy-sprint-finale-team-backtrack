@@ -97,7 +97,9 @@ jobs:
                   "sha": os.environ["TEAM_SHA"],
                   "branch": os.environ["TEAM_BRANCH"],
                   "source_run_id": os.environ["SOURCE_RUN_ID"],
-                  "artifact": f"site-dist-{os.environ['TEAM_SHA']}"
+                  "artifact": f"site-dist-{os.environ['TEAM_SHA']}",
+                  "docker_image": f"deploy-sprint/team-site:{os.environ['TEAM_SHA']}",
+                  "app_port": "8080"
               },
           }
 
@@ -118,6 +120,9 @@ jobs:
           TEAM_SHA: ${{ steps.request.outputs.sha }}
           SOURCE_RUN_ID: ${{ steps.request.outputs.source_run_id }}
         run: |
-          echo "### T03 Deploy Request Evidence" >> $GITHUB_STEP_SUMMARY
+          echo "### T18 Containerized VPS Deploy Evidence" >> $GITHUB_STEP_SUMMARY
           echo "- **STATUS_FIELD_ARTIFACT**: site-dist-${TEAM_SHA}" >> $GITHUB_STEP_SUMMARY
           echo "- **STATUS_FIELD_WORKFLOW_RUN**: ${SOURCE_RUN_ID}" >> $GITHUB_STEP_SUMMARY
+          echo "- **STATUS_FIELD_DOCKER_IMAGE**: deploy-sprint/team-site:${TEAM_SHA}" >> $GITHUB_STEP_SUMMARY
+          echo "- **STATUS_FIELD_APP_PORT**: 8080" >> $GITHUB_STEP_SUMMARY
+

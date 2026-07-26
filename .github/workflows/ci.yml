@@ -134,7 +134,9 @@ jobs:
           name: site-dist-${{ github.sha }}
           path: team-site/dist
 
-      - name: Verify Production Docker Image Build
+      - name: Build container image
         run: |
+          docker build -t deploy-sprint/team-site:$GITHUB_SHA team-site
           docker build -t team-site:production -f team-site/Dockerfile team-site/
-          echo "Docker production image built successfully: team-site:production"
+          echo "Docker production image built successfully: deploy-sprint/team-site:$GITHUB_SHA"
+
