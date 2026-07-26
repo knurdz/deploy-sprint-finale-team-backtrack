@@ -38,7 +38,7 @@ Use this section for short public notes and links. Full task instructions and ch
 | T06 | #8 | .github/workflows/ci.yml | Configured CI build gate with Node 20, npm ci, npm run build, and site-dist artifact upload |
 | T07 | #14 | team-site/src/components/WeatherWidget.tsx | Integrated OpenWeather widget with deploy-time API key fetching and safe weather status evidence |
 | T08 | [T08] Rebase Organizer Feature | team-site/src/components/LearningVelocity.tsx | Rebased organizer feature branch task-assets/rebase-feature bringing in LearningVelocity component |
-| T09 |  |  |  |
+| T09 | [T09] Conflict Merge With Both Outcomes | team-site/src/data/deadlines.ts | Merged task-assets/conflict-merge preserving both repo-setup-checkpoint and merge-conflict-lab deadline cards |
 | T10 | #14 | Safe provider evidence & contact form | Web3Forms contact service integrated with WEB3FORMS_ACCESS_KEY secret |
 | T11 | #18 | .github/workflows/preview.yml | Configured PR preview workflow publishing preview artifact and workflow summary evidence |
 | T10 | #13 | team-site/src/components/ContactForm.tsx | Integrated Web3Forms contact service with WEB3FORMS_ACCESS_KEY secret |
