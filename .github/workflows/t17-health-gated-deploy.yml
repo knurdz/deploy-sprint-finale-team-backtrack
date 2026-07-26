@@ -42,9 +42,11 @@ jobs:
         working-directory: team-site
 
       - name: Write health endpoint into dist
+        working-directory: team-site
         run: |
-          mkdir -p team-site/dist/health
-          printf 'ok' > team-site/dist/health/index.html
+          mkdir -p dist/health
+          echo -n 'ok' > dist/health/index.html
+          echo "Health endpoint written: $(cat dist/health/index.html)"
 
       # ── T17 core: run the health-gated deploy script ──────────────
       - name: "T17 – Deploy candidate with health gate"
