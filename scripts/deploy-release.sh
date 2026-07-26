@@ -65,18 +65,21 @@ HEALTH_OK=false
 for attempt in $(seq 1 "${HEALTH_RETRIES}"); do
   log "  Health-check attempt ${attempt}/${HEALTH_RETRIES}"
 
-  # File-based health check (works in CI without a running server)
+  BODY=""
   if [ -f "${RELEASE_ROOT}/candidate/${HEALTH_ENDPOINT}" ]; then
     BODY=$(cat "${RELEASE_ROOT}/candidate/${HEALTH_ENDPOINT}")
-    if [ "${BODY}" = "ok" ]; then
-      log "  ✓ Candidate health check PASSED (attempt ${attempt})"
-      HEALTH_OK=true
-      break
-    else
-      warn "  ✗ Health endpoint returned unexpected body: ${BODY}"
-    fi
+  elif [ -f "${RELEASE_ROOT}/candidate/health" ]; then
+    BODY=$(cat "${RELEASE_ROOT}/candidate/health")
+  elif [ -f "${RELEASE_ROOT}/candidate/health/index.html" ]; then
+    BODY=$(cat "${RELEASE_ROOT}/candidate/health/index.html")
+  fi
+
+  if [ "${BODY}" = "ok" ]; then
+    log "  ✓ Candidate health check PASSED (attempt ${attempt})"
+    HEALTH_OK=true
+    break
   else
-    warn "  ✗ Health endpoint file not found"
+    warn "  ✗ Health check failed or returned unexpected body: '${BODY}'"
   fi
 
   if [ "${attempt}" -lt "${HEALTH_RETRIES}" ]; then

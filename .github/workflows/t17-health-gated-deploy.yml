@@ -44,6 +44,7 @@ jobs:
       - name: Write health endpoint into dist
         working-directory: team-site
         run: |
+          rm -rf dist/health
           mkdir -p dist/health
           echo -n 'ok' > dist/health/index.html
           echo "Health endpoint written: $(cat dist/health/index.html)"
