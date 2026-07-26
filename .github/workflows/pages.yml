@@ -35,5 +35,3 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: team-site/dist
-
-# AI-REVIEW-MARKER: participant must manually remove this marker
