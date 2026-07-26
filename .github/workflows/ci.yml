@@ -13,6 +13,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Verify No Forbidden AI Markers
+        run: |
+          SEARCH_PATTERN="AI_REVIEW_MARKER|AI_AGENT_MARKER|AI_DATA_MARKER|PR_AGENT_MARKER|AI_PR_EVIDENCE_MARKER|SNIPPET_PLACEHOLDER"
+          SEARCH_REGEX=$(echo "$SEARCH_PATTERN" | tr '_' '-')
+          if git grep -E -i "$SEARCH_REGEX" -- ':!.github/workflows/ci.yml'; then
+            echo "::error::Forbidden AI/agent marker detected in repository!"
+            exit 1
+          fi
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
