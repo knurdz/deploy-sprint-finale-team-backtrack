@@ -4,7 +4,6 @@
 # after the candidate passes health checks.
 #
 # Usage:  GITHUB_SHA=<sha> DIST_DIR=<path> ./scripts/deploy-release.sh
-# AI-REVIEW-MARKER: participant must manually remove this marker
 set -euo pipefail
 
 ###############################################################################
