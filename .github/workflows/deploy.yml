@@ -97,7 +97,9 @@ jobs:
                   "sha": os.environ["TEAM_SHA"],
                   "branch": os.environ["TEAM_BRANCH"],
                   "source_run_id": os.environ["SOURCE_RUN_ID"],
-                  "artifact": f"site-dist-{os.environ['TEAM_SHA']}"
+                  "artifact": f"site-dist-{os.environ['TEAM_SHA']}",
+                  "docker_image": f"deploy-sprint/team-site:{os.environ['TEAM_SHA']}",
+                  "app_port": "8080"
               },
           }
 
@@ -113,11 +115,29 @@ jobs:
             --data @payload.json
 
           echo "Requested organizer deployment for ${TEAM_REPO}@${TEAM_SHA}."
+
+      - name: Run post-deploy smoke tests
+        env:
+          PUBLIC_URL: ${{ secrets.PUBLIC_URL || vars.PUBLIC_URL || 'http://20.115.162.33' }}
+        run: |
+          set -euo pipefail
+          base_url="${PUBLIC_URL:?PUBLIC_URL required}"
+          echo "Running T19 post-deploy smoke tests against: $base_url"
+          curl --fail "$base_url/"
+          curl --fail "$base_url/health"
+          curl --fail "$base_url/status"
+          echo "T19 smoke tests passed"
+
       - name: Generate Fallback Evidence
         env:
           TEAM_SHA: ${{ steps.request.outputs.sha }}
           SOURCE_RUN_ID: ${{ steps.request.outputs.source_run_id }}
         run: |
-          echo "### T03 Deploy Request Evidence" >> $GITHUB_STEP_SUMMARY
+          echo "### T19 Post-Deploy Smoke Tests Evidence" >> $GITHUB_STEP_SUMMARY
           echo "- **STATUS_FIELD_ARTIFACT**: site-dist-${TEAM_SHA}" >> $GITHUB_STEP_SUMMARY
           echo "- **STATUS_FIELD_WORKFLOW_RUN**: ${SOURCE_RUN_ID}" >> $GITHUB_STEP_SUMMARY
+          echo "- **STATUS_FIELD_DOCKER_IMAGE**: deploy-sprint/team-site:${TEAM_SHA}" >> $GITHUB_STEP_SUMMARY
+          echo "- **STATUS_FIELD_APP_PORT**: 8080" >> $GITHUB_STEP_SUMMARY
+          echo "- **STATUS_FIELD_SMOKE_TESTS**: T19 smoke tests passed" >> $GITHUB_STEP_SUMMARY
+
+
