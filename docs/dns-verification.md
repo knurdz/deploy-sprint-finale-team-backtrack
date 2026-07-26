@@ -5,8 +5,10 @@
 - **Team Repository**: `knurdz/deploy-sprint-finale-team-backtrack`
 - **Assigned Domain**: `backtrack.deploysprint-finals.knurdz.org`
 - **VPS Host / Target IP**: `20.115.162.33`
+- **SSH Port**: `22`
 - **VPS User**: `deploy`
 - **Deploy Path**: `/opt/deploy-sprint/backtrack`
+- **App Port**: `8080`
 - **DNS Record Type**: `A`
 - **DNS Record Name**: `backtrack.deploysprint-finals`
 - **DNS Target Value**: `20.115.162.33`
