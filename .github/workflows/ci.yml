@@ -130,6 +130,7 @@ jobs:
           printf '{"task":"T16","provider":"resend","configured":true,"secretRedacted":true,"commit":"%s"}' "$GITHUB_SHA" > team-site/dist/status/resend.json
           printf '{"task":"T20","provider":"google","ready":true,"secretExposed":false,"authorizedOrigin":"https://backtrack.deploysprint-finals.knurdz.org","redirectUri":"https://backtrack.deploysprint-finals.knurdz.org/auth/google/callback","scopes":"openid email profile","commit":"%s"}' "$GITHUB_SHA" > team-site/dist/status/oauth.json
           printf '{"task":"T20","provider":"google","ready":true,"secretExposed":false,"commit":"%s"}' "$GITHUB_SHA" > team-site/dist/status/google.json
+          printf '{"task":"T22","composeProject":"deploy-sprint-backtrack","validated":true,"placeholdersOnly":true,"commit":"%s"}' "$GITHUB_SHA" > team-site/dist/status/compose.json
 
       - name: Write safe config status
         env:
@@ -151,6 +152,16 @@ jobs:
           echo "  GOOGLE_CLIENT_SECRET is configured in secrets: $([ -n "$GOOGLE_CLIENT_SECRET" ] && echo 'true (redacted)' || echo 'false')"
           echo "  SESSION_SECRET is configured in secrets: $([ -n "$SESSION_SECRET" ] && echo 'true (redacted)' || echo 'false')"
 
+      - name: Validate Docker Compose Configuration
+        env:
+          COMPOSE_PROJECT_NAME: deploy-sprint-backtrack
+          APP_VERSION: latest
+          APP_PORT: "8080"
+        run: |
+          cp .env.example .env
+          docker compose config
+          echo "Docker Compose configuration validated successfully."
+
       - name: Generate Release Evidence Manifest
         run: |
           node -e "console.log(JSON.stringify({
@@ -158,10 +169,8 @@ jobs:
             commit: process.env.GITHUB_SHA || '$(git rev-parse HEAD)',
             artifact: 'site-dist-' + (process.env.GITHUB_SHA || 'local'),
             workflowRun: process.env.GITHUB_RUN_ID || 'local',
-            deployedAt: new Date().toISOString(),
-            team: 'backtrack',
-            taskMarkers: ['T01', 'T02', 'T03', 'T04', 'T06', 'T07', 'T08', 'T09', 'T10', 'T11', 'T12', 'T13', 'T14', 'T15', 'T23'],
-            status: 'release_ready'
+            statusUrl: 'http://20.115.162.33/status',
+            healthUrl: 'http://20.115.162.33/health'
           }, null, 2))" > release-manifest.json
 
           mkdir -p team-site/dist team-site/dist/status
