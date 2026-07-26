@@ -1,3 +1,4 @@
+# Production multi-stage Dockerfile for team-site
 FROM node:20-alpine AS build
 WORKDIR /app
 COPY package*.json ./
