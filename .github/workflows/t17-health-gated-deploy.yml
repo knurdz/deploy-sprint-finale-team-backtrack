@@ -1,0 +1,148 @@
+name: "T17 Health-Gated Symlink Deploy"
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  health-gated-deploy:
+    name: Health-gated release deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: team-site/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: team-site
+
+      - name: Build site
+        env:
+          VITE_PUBLIC_URL: ${{ vars.PUBLIC_URL || vars.DOMAIN_PUBLIC_URL || secrets.PUBLIC_URL || vars.IP_PUBLIC_URL }}
+          VITE_COMMIT_SHA: ${{ github.sha }}
+          VITE_ARTIFACT_NAME: site-dist-${{ github.sha }}
+          VITE_WORKFLOW_RUN: ${{ github.run_id }}
+          VITE_TEAM_NAME: backtrack
+          VITE_PUBLIC_DEPLOY_LABEL: ${{ vars.PUBLIC_DEPLOY_LABEL || 'Deploy Sprint Finale' }}
+        run: npm run build
+        working-directory: team-site
+
+      - name: Write health endpoint into dist
+        run: |
+          mkdir -p team-site/dist/health
+          printf 'ok' > team-site/dist/health/index.html
+
+      # ── T17 core: run the health-gated deploy script ──────────────
+      - name: "T17 – Deploy candidate with health gate"
+        id: deploy
+        env:
+          GITHUB_SHA: ${{ github.sha }}
+          DIST_DIR: team-site/dist
+          RELEASE_ROOT: releases
+          HEALTH_RETRIES: "3"
+          HEALTH_RETRY_DELAY: "1"
+        run: |
+          set -euo pipefail
+          chmod +x scripts/deploy-release.sh
+          echo "::group::Health-gated deploy log"
+          bash scripts/deploy-release.sh 2>&1 | tee /tmp/t17-deploy.log
+          echo "::endgroup::"
+
+      - name: Verify current symlink
+        run: |
+          set -euo pipefail
+          echo "── Symlink verification ──"
+          ls -la releases/current
+          CURRENT_TARGET=$(readlink releases/current)
+          echo "current -> ${CURRENT_TARGET}"
+          if [ "${CURRENT_TARGET}" != "releases/${{ github.sha }}" ]; then
+            echo "::error::current symlink does not point to expected release"
+            exit 1
+          fi
+          echo "✓ current symlink correctly points to releases/${{ github.sha }}"
+
+      # ── Simulate failure scenario for evidence ────────────────────
+      - name: "T17 – Simulate failed deploy (bad health)"
+        run: |
+          set -euo pipefail
+          echo "::group::Simulated failure deploy"
+
+          FAKE_SHA="deadbeef0000000000000000000000000000dead"
+          BAD_DIR="releases/${FAKE_SHA}"
+          mkdir -p "${BAD_DIR}/health"
+          # Write a BAD health response
+          printf 'unhealthy' > "${BAD_DIR}/health/index.html"
+
+          # Record current symlink before attempting bad deploy
+          BEFORE=$(readlink releases/current)
+          echo "Current symlink BEFORE bad deploy: ${BEFORE}"
+
+          # Run deploy – expect it to fail
+          GITHUB_SHA="${FAKE_SHA}" \
+          DIST_DIR="${BAD_DIR}" \
+          RELEASE_ROOT=releases \
+          HEALTH_RETRIES=1 \
+          HEALTH_RETRY_DELAY=0 \
+          bash scripts/deploy-release.sh 2>&1 | tee /tmp/t17-failure.log || true
+
+          # Verify current symlink was NOT changed
+          AFTER=$(readlink releases/current)
+          echo "Current symlink AFTER bad deploy: ${AFTER}"
+
+          if [ "${BEFORE}" = "${AFTER}" ]; then
+            echo "✓ Known-good release retained after failed health check"
+          else
+            echo "::error::current symlink was changed despite failed health check!"
+            exit 1
+          fi
+
+          echo "::endgroup::"
+
+      - name: Collect deploy evidence
+        run: |
+          mkdir -p evidence
+          cp /tmp/t17-deploy.log evidence/ 2>/dev/null || true
+          cp /tmp/t17-failure.log evidence/ 2>/dev/null || true
+
+          # Directory listing
+          echo "── Release directory structure ──" > evidence/directory-listing.txt
+          ls -laR releases/ >> evidence/directory-listing.txt 2>/dev/null || true
+
+      - name: Upload T17 evidence artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: t17-health-gated-deploy-evidence-${{ github.sha }}
+          path: evidence/
+
+      - name: Generate step summary
+        run: |
+          cat <<'EOF' >> $GITHUB_STEP_SUMMARY
+          ### T17 – Health-Gated Symlink Deploy Evidence
+
+          | Check | Result |
+          |-------|--------|
+          | Candidate health check before switch | ✓ Passed |
+          | `current` symlink updated after healthy candidate | ✓ Verified |
+          | Known-good release retained on failure | ✓ Verified |
+          | Deploy script location | `scripts/deploy-release.sh` |
+          | Workflow location | `.github/workflows/t17-health-gated-deploy.yml` |
+
+          **Pattern**: Symlinked release directories with health gate.
+          Candidate release created at `releases/$GITHUB_SHA`, health-checked,
+          then `current` symlink atomically switched only on success.
+          On failure the previous `current` symlink is preserved.
+          EOF

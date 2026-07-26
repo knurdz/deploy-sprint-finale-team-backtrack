@@ -47,7 +47,7 @@ Use this section for short public notes and links. Full task instructions and ch
 | T15 | #30 | team-site/src/utils/featureFlags.ts | Runtime feature flag FEATURE_SHOW_INSIGHTS integrated with safe redacted status evidence |
 
 | T16 |  |  |  |
-| T17 |  |  |  |
+| T17 | TBD | scripts/deploy-release.sh, .github/workflows/t17-health-gated-deploy.yml | Health-gated symlink deploy: candidate release created at releases/$SHA, health-checked before current symlink switch, known-good release retained on failure |
 | T18 |  |  |  |
 | T19 |  |  |  |
 | T20 |  |  |  |
