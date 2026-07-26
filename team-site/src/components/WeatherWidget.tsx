@@ -30,6 +30,9 @@ export function WeatherWidget() {
         <p>
           {weather.temp}°C — {weather.description}
         </p>
+        <p>
+          Humidity: {weather.humidity}%
+        </p>
         <small style={{ opacity: 0.75 }}>Provider: {weather.provider}</small>
       </div>
     </div>
