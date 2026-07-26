@@ -11,6 +11,7 @@ import {
   ShieldCheck,
   Users,
 } from 'lucide-react';
+import { WeatherWidget } from './components/WeatherWidget';
 import { ContactForm } from './components/ContactForm';
 import { CourseCard } from './components/CourseCard';
 import { DeadlineBoard } from './components/DeadlineBoard';
@@ -83,6 +84,8 @@ export function App() {
           <ShieldCheck size={18} />
           <p>{publicLabel} — Repository changes are reviewed before every release.</p>
         </div>
+
+        <WeatherWidget />
       </aside>
 
       <section className="workspace">

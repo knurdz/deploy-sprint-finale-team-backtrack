@@ -36,7 +36,7 @@ Use this section for short public notes and links. Full task instructions and ch
 | T04 | [T04] Rollback To Known-Good Release | .github/workflows/rollback.yml | Implemented workflow_dispatch rollback workflow with release_ref input |
 | T05 |  |  |  |
 | T06 | #8 | .github/workflows/ci.yml | Configured CI build gate with Node 20, npm ci, npm run build, and site-dist artifact upload |
-| T07 |  |  |  |
+| T07 | #14 | team-site/src/components/WeatherWidget.tsx | Integrated OpenWeather widget with deploy-time API key fetching and safe weather status evidence |
 | T08 |  |  |  |
 | T09 |  |  |  |
 | T10 | PR pending | Safe provider evidence & contact form | Web3Forms contact service integrated with WEB3FORMS_ACCESS_KEY secret |

@@ -1,0 +1,8 @@
+{
+  "city": "Colombo",
+  "temp": 28,
+  "description": "scattered clouds",
+  "humidity": 75,
+  "provider": "openweather",
+  "configured": true
+}
