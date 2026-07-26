@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Activity,
   Bell,
@@ -6,43 +5,21 @@ import {
   CalendarCheck,
   GitBranch,
   GraduationCap,
-  Mail,
   Search,
   ShieldCheck,
   Users,
 } from 'lucide-react';
-import { WeatherWidget } from './components/WeatherWidget';
-import { ContactForm } from './components/ContactForm';
 import { CourseCard } from './components/CourseCard';
 import { DeadlineBoard } from './components/DeadlineBoard';
+import { LearningVelocity } from './components/LearningVelocity';
 import { StatCard } from './components/StatCard';
 import { courses } from './data/courses';
 import { deadlineCards } from './data/deadlines';
 import { sprintStats } from './data/stats';
-import { runtimeConfig } from './utils/config';
 import { getAverageProgress } from './utils/metrics';
 
-function StatusPage() {
-  return (
-    <div style={{ padding: '2rem' }}>
-      <h1>System Status</h1>
-      <ul>
-        <li><strong>Team Name:</strong> {import.meta.env.VITE_TEAM_NAME || 'Unknown'}</li>
-        <li><strong>Commit SHA:</strong> {import.meta.env.VITE_COMMIT_SHA || 'Unknown'}</li>
-        <li><strong>Task Marker:</strong> T01, T03</li>
-        <li><strong>Artifact ID:</strong> {import.meta.env.VITE_ARTIFACT_NAME || 'Unknown'}</li>
-        <li><strong>Workflow Run:</strong> {import.meta.env.VITE_WORKFLOW_RUN || 'Unknown'}</li>
-      </ul>
-    </div>
-  );
-}
-
 export function App() {
-  if (typeof window !== 'undefined' && window.location.pathname === '/status') {
-    return <StatusPage />;
-  }
   const averageProgress = getAverageProgress(courses);
-  const publicLabel = import.meta.env.VITE_PUBLIC_DEPLOY_LABEL || 'Deploy Sprint Finale';
 
   return (
     <main className="shell">
@@ -74,18 +51,12 @@ export function App() {
             <Users size={18} />
             Teams
           </a>
-          <a href="#contact">
-            <Mail size={18} />
-            Contact Support
-          </a>
         </nav>
 
         <div className="sidebarPanel">
           <ShieldCheck size={18} />
-          <p>{publicLabel} — Repository changes are reviewed before every release.</p>
+          <p>Repository changes are reviewed before every release.</p>
         </div>
-
-        <WeatherWidget />
       </aside>
 
       <section className="workspace">
@@ -126,6 +97,8 @@ export function App() {
           ))}
         </section>
 
+        <LearningVelocity courses={courses} />
+
         <section className="contentGrid">
           <div className="panel" id="courses">
             <div className="panelHeader">
@@ -145,8 +118,6 @@ export function App() {
 
           <DeadlineBoard deadlines={deadlineCards} />
         </section>
-
-        <ContactForm />
       </section>
     </main>
   );
