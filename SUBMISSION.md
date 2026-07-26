@@ -34,10 +34,10 @@ Use this section for short public notes and links. Full task instructions and ch
 | T02 | #6 | https://backtrack.deploysprint-finals.knurdz.org/status | Connected custom domain with A record, TXT challenge, and status metadata |
 | T03 | #7 | .github/workflows/deploy.yml | Configured single artifact build and deployment flow |
 | T04 | #12 | .github/workflows/rollback.yml | Implemented workflow_dispatch rollback workflow with release_ref input |
-| T05 | #2 | team-site/src/utils/config.ts | Implemented runtime config separation with VITE_ build variable and secret token |
-| T06 | #11 | .github/workflows/ci.yml | Configured CI build gate with Node 20, npm ci, npm run build, and site-dist artifact upload |
-| T07 | #17 | team-site/src/components/WeatherWidget.tsx | Integrated OpenWeather widget with deploy-time API key fetching and safe weather status evidence |
-| T08 |  |  |  |
+| T05 |  |  |  |
+| T06 | #8 | .github/workflows/ci.yml | Configured CI build gate with Node 20, npm ci, npm run build, and site-dist artifact upload |
+| T07 | #14 | team-site/src/components/WeatherWidget.tsx | Integrated OpenWeather widget with deploy-time API key fetching and safe weather status evidence |
+| T08 | [T08] Rebase Organizer Feature | team-site/src/components/LearningVelocity.tsx | Rebased organizer feature branch task-assets/rebase-feature bringing in LearningVelocity component |
 | T09 |  |  |  |
 | T10 | #14 | Safe provider evidence & contact form | Web3Forms contact service integrated with WEB3FORMS_ACCESS_KEY secret |
 | T11 | #18 | .github/workflows/preview.yml | Configured PR preview workflow publishing preview artifact and workflow summary evidence |
