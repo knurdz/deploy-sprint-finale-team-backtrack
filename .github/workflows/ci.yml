@@ -108,3 +108,8 @@ jobs:
         with:
           name: site-dist-${{ github.sha }}
           path: team-site/dist
+
+      - name: Verify Production Docker Image Build
+        run: |
+          docker build -t team-site:production -f team-site/Dockerfile team-site/
+          echo "Docker production image built successfully: team-site:production"
