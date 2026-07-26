@@ -46,6 +46,8 @@ jobs:
           VITE_TEAM_NAME: backtrack
           VITE_PUBLIC_DEPLOY_LABEL: ${{ vars.PUBLIC_DEPLOY_LABEL || 'Deploy Sprint Finale' }}
           VITE_WEB3FORMS_ACCESS_KEY: ${{ secrets.WEB3FORMS_ACCESS_KEY }}
+          VITE_FEATURE_SHOW_INSIGHTS: ${{ secrets.FEATURE_SHOW_INSIGHTS || vars.FEATURE_SHOW_INSIGHTS }}
+          FEATURE_SHOW_INSIGHTS: ${{ secrets.FEATURE_SHOW_INSIGHTS || vars.FEATURE_SHOW_INSIGHTS }}
         run: npm run build
         working-directory: team-site
 
@@ -58,7 +60,12 @@ jobs:
             "commit": "${{ github.sha }}",
             "artifact": "site-dist-${{ github.sha }}",
             "workflowRun": "${{ github.run_id }}",
-            "task": "T03"
+            "task": "T15",
+            "featureFlags": {
+              "task": "T15",
+              "showInsights": ${{ (secrets.FEATURE_SHOW_INSIGHTS == 'true' || vars.FEATURE_SHOW_INSIGHTS == 'true') && 'true' || 'false' }},
+              "valueRedacted": true
+            }
           }
           EOF
 
@@ -89,6 +96,7 @@ jobs:
       - name: Write safe status evidence
         env:
           WEB3FORMS_ACCESS_KEY: ${{ secrets.WEB3FORMS_ACCESS_KEY }}
+          FEATURE_SHOW_INSIGHTS: ${{ secrets.FEATURE_SHOW_INSIGHTS || vars.FEATURE_SHOW_INSIGHTS }}
         run: |
           rm -rf team-site/dist/status team-site/dist/health
           mkdir -p team-site/dist/status team-site/dist/health
@@ -96,16 +104,19 @@ jobs:
           printf '{"task":"T07","commit":"%s","ok":true,"domain":{"connected":true,"assignedDomain":"backtrack.deploysprint-finals.knurdz.org","recordType":"A","dnsTarget":"20.115.162.33"},"domainConfigured":true,"weather":{"provider":"openweather","configured":true}}' "$GITHUB_SHA" > team-site/dist/status/index.html
           printf '{"task":"T02","commit":"%s","ok":true,"domain":{"connected":true,"assignedDomain":"backtrack.deploysprint-finals.knurdz.org","recordType":"A","dnsTarget":"20.115.162.33"},"domainConfigured":true}' "$GITHUB_SHA" > team-site/dist/status/index.html
           printf '{"task":"T10","provider":"web3forms","accessKeyStoredInSecret":true,"status":"configured","commit":"%s"}' "$GITHUB_SHA" > team-site/dist/status/contact.json
+          printf '{"task":"T15","showInsights":%s,"valueRedacted":true,"commit":"%s"}' "$([ "$FEATURE_SHOW_INSIGHTS" = "true" ] && echo 'true' || echo 'false')" "$GITHUB_SHA" > team-site/dist/status/feature-flags.json
 
       - name: Write safe config status
         env:
           PRIVATE_DEPLOY_TOKEN: ${{ secrets.PRIVATE_DEPLOY_TOKEN }}
           WEB3FORMS_ACCESS_KEY: ${{ secrets.WEB3FORMS_ACCESS_KEY }}
+          FEATURE_SHOW_INSIGHTS: ${{ secrets.FEATURE_SHOW_INSIGHTS || vars.FEATURE_SHOW_INSIGHTS }}
         run: |
           echo "Config separation evidence:"
           echo "  PUBLIC_DEPLOY_LABEL is injected via VITE_ build variable"
           echo "  PRIVATE_DEPLOY_TOKEN is configured in secrets: $([ -n "$PRIVATE_DEPLOY_TOKEN" ] && echo 'true (redacted)' || echo 'false')"
           echo "  WEB3FORMS_ACCESS_KEY is configured in secrets: $([ -n "$WEB3FORMS_ACCESS_KEY" ] && echo 'true (redacted)' || echo 'false')"
+          echo "  FEATURE_SHOW_INSIGHTS is configured: $([ -n "$FEATURE_SHOW_INSIGHTS" ] && echo 'true (redacted)' || echo 'false')"
 
       - name: Upload dist artifact
         uses: actions/upload-artifact@v4
