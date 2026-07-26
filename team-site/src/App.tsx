@@ -15,10 +15,12 @@ import { StatCard } from './components/StatCard';
 import { courses } from './data/courses';
 import { deadlineCards } from './data/deadlines';
 import { sprintStats } from './data/stats';
+import { runtimeConfig } from './utils/config';
 import { getAverageProgress } from './utils/metrics';
 
 export function App() {
   const averageProgress = getAverageProgress(courses);
+  const publicLabel = import.meta.env.VITE_PUBLIC_DEPLOY_LABEL || 'Deploy Sprint Finale';
 
   return (
     <main className="shell">
@@ -54,7 +56,7 @@ export function App() {
 
         <div className="sidebarPanel">
           <ShieldCheck size={18} />
-          <p>Repository changes are reviewed before every release.</p>
+          <p>{publicLabel} — Repository changes are reviewed before every release.</p>
         </div>
       </aside>
 
