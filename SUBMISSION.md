@@ -66,6 +66,7 @@ Use this section for short public notes and links. Full task instructions and ch
 | T25 | #45 | team-site/src/utils/metrics.ts | Cherry-picked organizer hotfix commit 91e51ab from task-assets/hotfix applying focused metrics calculation fix |
 | T26 |  |  |  |
 | T27 |  |  |  |
+| T28 | [T28] Race-Safe Idempotent Deploy | .github/workflows/deploy.yml | Implemented race-safe deployment lock (deploy-sprint-backtrack.lock), retry-safe directory operations, and idempotent rerun logs |
 | T28 |  |  |  |
 | T29 |  |  |  |
 | T30 | #40 | team-site/src/utils/sentry.ts | Integrated @sentry/react monitoring SDK with SENTRY_DSN, SENTRY_AUTH_TOKEN, SENTRY_ORG (knurdz), and SENTRY_PROJECT (deploy-sprint-finals) |
