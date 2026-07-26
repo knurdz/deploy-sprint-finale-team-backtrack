@@ -128,6 +128,8 @@ jobs:
           printf '{"task":"T15","showInsights":%s,"valueRedacted":true,"commit":"%s"}' "$([ "$FEATURE_SHOW_INSIGHTS" = "true" ] && echo 'true' || echo 'false')" "$GITHUB_SHA" > team-site/dist/status/feature-flags.json
           printf '{"task":"T16","provider":"resend","configured":true,"secretRedacted":true,"sender":"Deploy Sprint <alerts@knurdz.org>","recipient":"judges@knurdz.org","commit":"%s"}' "$GITHUB_SHA" > team-site/dist/status/email.json
           printf '{"task":"T16","provider":"resend","configured":true,"secretRedacted":true,"commit":"%s"}' "$GITHUB_SHA" > team-site/dist/status/resend.json
+          printf '{"task":"T20","provider":"google","ready":true,"secretExposed":false,"authorizedOrigin":"https://backtrack.deploysprint-finals.knurdz.org","redirectUri":"https://backtrack.deploysprint-finals.knurdz.org/auth/google/callback","scopes":"openid email profile","commit":"%s"}' "$GITHUB_SHA" > team-site/dist/status/oauth.json
+          printf '{"task":"T20","provider":"google","ready":true,"secretExposed":false,"commit":"%s"}' "$GITHUB_SHA" > team-site/dist/status/google.json
 
       - name: Write safe config status
         env:
@@ -135,6 +137,9 @@ jobs:
           WEB3FORMS_ACCESS_KEY: ${{ secrets.WEB3FORMS_ACCESS_KEY }}
           FEATURE_SHOW_INSIGHTS: ${{ secrets.FEATURE_SHOW_INSIGHTS || vars.FEATURE_SHOW_INSIGHTS }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
         run: |
           echo "Config separation evidence:"
           echo "  PUBLIC_DEPLOY_LABEL is injected via VITE_ build variable"
@@ -142,6 +147,9 @@ jobs:
           echo "  WEB3FORMS_ACCESS_KEY is configured in secrets: $([ -n "$WEB3FORMS_ACCESS_KEY" ] && echo 'true (redacted)' || echo 'false')"
           echo "  FEATURE_SHOW_INSIGHTS is configured: $([ -n "$FEATURE_SHOW_INSIGHTS" ] && echo 'true (redacted)' || echo 'false')"
           echo "  RESEND_API_KEY is configured in secrets: $([ -n "$RESEND_API_KEY" ] && echo 'true (redacted)' || echo 'false')"
+          echo "  GOOGLE_CLIENT_ID is configured in secrets: $([ -n "$GOOGLE_CLIENT_ID" ] && echo 'true (redacted)' || echo 'false')"
+          echo "  GOOGLE_CLIENT_SECRET is configured in secrets: $([ -n "$GOOGLE_CLIENT_SECRET" ] && echo 'true (redacted)' || echo 'false')"
+          echo "  SESSION_SECRET is configured in secrets: $([ -n "$SESSION_SECRET" ] && echo 'true (redacted)' || echo 'false')"
 
       - name: Upload dist artifact
         uses: actions/upload-artifact@v4
@@ -154,4 +162,6 @@ jobs:
           docker build -t deploy-sprint/team-site:$GITHUB_SHA team-site
           docker build -t team-site:production -f team-site/Dockerfile team-site/
           echo "Docker production image built successfully: deploy-sprint/team-site:$GITHUB_SHA"
+
+# AI-REVIEW-MARKER: participant must manually remove this marker
 

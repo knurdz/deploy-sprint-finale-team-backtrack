@@ -50,7 +50,7 @@ Use this section for short public notes and links. Full task instructions and ch
 | T17 |  |  |  |
 | T18 | #32 | .github/workflows/ci.yml | Built Docker container image deploy-sprint/team-site:$GITHUB_SHA and submitted containerized deploy request on APP_PORT 8080 |
 | T19 |  |  |  |
-| T20 |  |  |  |
+| T20 | Pending | team-site/src/utils/googleOAuth.ts | Implemented server-side Google OAuth routes (/auth/google, callback, logout, me) with GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, and SESSION_SECRET |
 | T21 |  |  |  |
 | T22 |  |  |  |
 | T23 |  |  |  |
