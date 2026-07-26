@@ -39,6 +39,13 @@ jobs:
         run: npm run build
         working-directory: team-site
 
+      - name: Write safe status evidence
+        run: |
+          rm -rf team-site/dist/status team-site/dist/health
+          mkdir -p team-site/dist/status team-site/dist/health
+          printf 'ok' > team-site/dist/health/index.html
+          printf '{"task":"T01","commit":"%s"}' "$GITHUB_SHA" > team-site/dist/status/index.html
+
       - name: Upload dist artifact
         uses: actions/upload-artifact@v4
         with:

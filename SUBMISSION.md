@@ -30,7 +30,7 @@ Use this section for short public notes and links. Full task instructions and ch
 
 | Task | PR | Evidence | Notes |
 | --- | --- | --- | --- |
-| T01 |  |  |  |
+| T01 | #3 | http://20.115.162.33/health | Deployed team site with health and status evidence |
 | T02 |  |  |  |
 | T03 |  |  |  |
 | T04 |  |  |  |
