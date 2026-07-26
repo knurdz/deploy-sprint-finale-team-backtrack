@@ -7,6 +7,7 @@ export function featureFlags() {
     task: 'T15',
     showInsights: Boolean(showInsights),
     valueRedacted: true,
+    envKey: 'FEATURE_SHOW_INSIGHTS',
   };
 }
 
@@ -14,3 +15,4 @@ export function featureFlags() {
 if (typeof console !== 'undefined' && console.log) {
   console.log('Feature flags status:', JSON.stringify(featureFlags()));
 }
+
