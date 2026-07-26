@@ -40,7 +40,7 @@ Use this section for short public notes and links. Full task instructions and ch
 | T08 |  |  |  |
 | T09 |  |  |  |
 | T10 | #14 | Safe provider evidence & contact form | Web3Forms contact service integrated with WEB3FORMS_ACCESS_KEY secret |
-| T11 |  |  |  |
+| T11 | Pending | .github/workflows/preview.yml | Configured PR preview workflow publishing preview artifact and workflow summary evidence |
 | T12 |  |  |  |
 | T13 |  |  |  |
 | T14 |  |  |  |
