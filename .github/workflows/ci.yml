@@ -153,5 +153,3 @@ jobs:
         run: |
           docker build -t team-site:production -f team-site/Dockerfile team-site/
           echo "Docker production image built successfully: team-site:production"
-
-# AI-REVIEW-MARKER: participant must manually remove this marker
