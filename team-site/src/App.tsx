@@ -21,17 +21,20 @@ import { deadlineCards } from './data/deadlines';
 import { sprintStats } from './data/stats';
 import { runtimeConfig } from './utils/config';
 import { getAverageProgress } from './utils/metrics';
+import { featureFlags } from './utils/featureFlags';
 
 function StatusPage() {
+  const flags = featureFlags();
   return (
     <div style={{ padding: '2rem' }}>
       <h1>System Status</h1>
       <ul>
         <li><strong>Team Name:</strong> {import.meta.env.VITE_TEAM_NAME || 'Unknown'}</li>
         <li><strong>Commit SHA:</strong> {import.meta.env.VITE_COMMIT_SHA || 'Unknown'}</li>
-        <li><strong>Task Marker:</strong> T01, T03</li>
+        <li><strong>Task Marker:</strong> T01, T03, T15</li>
         <li><strong>Artifact ID:</strong> {import.meta.env.VITE_ARTIFACT_NAME || 'Unknown'}</li>
         <li><strong>Workflow Run:</strong> {import.meta.env.VITE_WORKFLOW_RUN || 'Unknown'}</li>
+        <li><strong>Feature Flags:</strong> {JSON.stringify(flags)}</li>
       </ul>
     </div>
   );
@@ -41,6 +44,7 @@ export function App() {
   if (typeof window !== 'undefined' && window.location.pathname === '/status') {
     return <StatusPage />;
   }
+  const flags = featureFlags();
   const averageProgress = getAverageProgress(courses);
   const publicLabel = import.meta.env.VITE_PUBLIC_DEPLOY_LABEL || 'Deploy Sprint Finale';
 
@@ -145,6 +149,20 @@ export function App() {
 
           <DeadlineBoard deadlines={deadlineCards} />
         </section>
+
+        {flags.showInsights && (
+          <section className="panel" id="insights" style={{ marginTop: '1.5rem', padding: '1.5rem', borderRadius: '12px', background: 'var(--surface-color, #1e293b)', color: 'var(--text-color, #f8fafc)' }}>
+            <div className="panelHeader">
+              <div>
+                <p className="eyebrow" style={{ color: '#38bdf8', fontWeight: 600 }}>Feature Flag Active (T15)</p>
+                <h2>System Insights & Telemetry</h2>
+              </div>
+            </div>
+            <p style={{ marginTop: '0.5rem', color: '#94a3b8' }}>
+              Insights telemetry is currently active via <code>FEATURE_SHOW_INSIGHTS</code> environment configuration.
+            </p>
+          </section>
+        )}
 
         <ContactForm />
       </section>
