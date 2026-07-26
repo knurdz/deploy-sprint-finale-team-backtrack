@@ -53,7 +53,7 @@ Use this section for short public notes and links. Full task instructions and ch
 | T20 |  |  |  |
 | T21 |  |  |  |
 | T22 |  |  |  |
-| T23 |  |  |  |
+| T23 | [T23] Release Evidence Manifest | release-manifest.json | Generated release evidence manifest containing commit SHA, artifact identity, workflow run ID, deploy time, and task markers |
 | T24 |  |  |  |
 | T25 |  |  |  |
 | T26 |  |  |  |

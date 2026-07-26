@@ -128,13 +128,37 @@ jobs:
           echo "  WEB3FORMS_ACCESS_KEY is configured in secrets: $([ -n "$WEB3FORMS_ACCESS_KEY" ] && echo 'true (redacted)' || echo 'false')"
           echo "  FEATURE_SHOW_INSIGHTS is configured: $([ -n "$FEATURE_SHOW_INSIGHTS" ] && echo 'true (redacted)' || echo 'false')"
 
+      - name: Generate Release Evidence Manifest
+        run: |
+          node -e "console.log(JSON.stringify({
+            task: 'T23',
+            commit: process.env.GITHUB_SHA || '$(git rev-parse HEAD)',
+            artifact: 'site-dist-' + (process.env.GITHUB_SHA || 'local'),
+            workflowRun: process.env.GITHUB_RUN_ID || 'local',
+            deployedAt: new Date().toISOString(),
+            team: 'backtrack',
+            taskMarkers: ['T01', 'T02', 'T03', 'T04', 'T06', 'T07', 'T08', 'T09', 'T10', 'T11', 'T12', 'T13', 'T14', 'T15', 'T23'],
+            status: 'release_ready'
+          }, null, 2))" > release-manifest.json
+
+          mkdir -p team-site/dist team-site/dist/status
+          cp release-manifest.json team-site/dist/release-manifest.json
+          cp release-manifest.json team-site/dist/status/release-manifest.json
+
       - name: Upload dist artifact
         uses: actions/upload-artifact@v4
         with:
           name: site-dist-${{ github.sha }}
           path: team-site/dist
 
+      - name: Upload release manifest artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-manifest-${{ github.sha }}
+          path: release-manifest.json
+
       - name: Verify Production Docker Image Build
         run: |
           docker build -t team-site:production -f team-site/Dockerfile team-site/
           echo "Docker production image built successfully: team-site:production"
+
