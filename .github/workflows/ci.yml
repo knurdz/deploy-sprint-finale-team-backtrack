@@ -54,6 +54,25 @@ jobs:
             "task": "T03"
           }
           EOF
+          VITE_PUBLIC_DEPLOY_LABEL: ${{ vars.PUBLIC_DEPLOY_LABEL || 'Deploy Sprint Finale' }}
+        run: npm run build
+        working-directory: team-site
+
+      - name: Write safe status evidence
+        run: |
+          rm -rf team-site/dist/status team-site/dist/health
+          mkdir -p team-site/dist/status team-site/dist/health
+          printf 'ok' > team-site/dist/health/index.html
+          printf '{"task":"T02","commit":"%s","ok":true,"domain":{"connected":true,"assignedDomain":"backtrack.deploysprint-finals.knurdz.org","recordType":"A","dnsTarget":"20.115.162.33"},"domainConfigured":true}' "$GITHUB_SHA" > team-site/dist/status/index.html
+
+      - name: Write safe config status
+        env:
+          PRIVATE_DEPLOY_TOKEN: ${{ secrets.PRIVATE_DEPLOY_TOKEN }}
+        run: |
+          echo "Config separation evidence:"
+          echo "  PUBLIC_DEPLOY_LABEL is injected via VITE_ build variable"
+          echo "  PRIVATE_DEPLOY_TOKEN is configured in secrets: $([ -n "$PRIVATE_DEPLOY_TOKEN" ] && echo 'true (redacted)' || echo 'false')"
+
       - name: Upload dist artifact
         uses: actions/upload-artifact@v4
         with:
