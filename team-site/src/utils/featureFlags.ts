@@ -1,5 +1,3 @@
-// AI-REVIEW-MARKER: participant must manually remove this marker
-
 export function featureFlags() {
   const showInsights =
     (typeof process !== 'undefined' && process.env && process.env.FEATURE_SHOW_INSIGHTS === 'true') ||
