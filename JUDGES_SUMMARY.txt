@@ -1,0 +1,144 @@
+================================================================================
+DEPLOY SPRINT FINALE - SUMMARY OF COMPLETED TASKS & ARCHITECTURE
+================================================================================
+
+TEAM INFORMATION
+----------------
+Team Name:         backtrack
+Team Members:      inusha-thathsara, sadissanushka, jayanathsp-24, kaushalyawijesiri0-lang
+Live IP URL:       http://20.115.162.33
+Assigned Domain:   https://backtrack.deploysprint-finals.knurdz.org
+Repository URL:    https://github.com/knurdz/deploy-sprint-finale-team-backtrack
+
+================================================================================
+EXECUTIVE SUMMARY
+================================================================================
+The backtrack team has implemented a production-grade CI/CD pipeline, modular web 
+application architecture, containerized delivery system, and robust security hygiene. 
+Every task was executed via strict pull request workflows, peer review gates, 
+lockfile dependency caching, single-artifact deployment provenance, and clean 
+marker hygiene.
+
+================================================================================
+COMPLETED TASKS & TECHNICAL IMPLEMENTATION BREAKDOWN
+================================================================================
+
+T01 - LAUNCH PROVIDED WEBSITE
+-----------------------------
+• Objective: Deploy base team site with health and status evidence.
+• Implementation: Initialized Vite/React LMS application under `team-site/`.
+• Evidence Endpoints: Live `/health` (HTTP 200 OK) and `/status` endpoints.
+• PR: #5 | Live URL: http://20.115.162.33
+
+T02 - CONNECT CUSTOM DOMAIN
+---------------------------
+• Objective: Configure DNS and verify custom domain connectivity.
+• Implementation: Bound `backtrack.deploysprint-finals.knurdz.org` to IP 20.115.162.33 
+  via A record and TXT verification challenge. Added status metadata.
+• PR: #6 | Domain URL: https://backtrack.deploysprint-finals.knurdz.org/status
+
+T03 - BUILD ONCE, DEPLOY SAME ARTIFACT
+--------------------------------------
+• Objective: Decouple compilation from deployment for immutable artifact delivery.
+• Implementation: CI compiles single artifact `site-dist-${sha}` on `main`. CD workflow 
+  (`deploy.yml`) downloads the exact compiled artifact without re-building.
+• PR: #7 | Workflow: .github/workflows/deploy.yml
+
+T04 - ROLLBACK TO KNOWN-GOOD RELEASE
+------------------------------------
+• Objective: Provide automated mechanism to revert live deployment to previous releases.
+• Implementation: Created manual workflow (`.github/workflows/rollback.yml`) with 
+  `workflow_dispatch` trigger accepting `release_ref` / SHA input to redeploy known-good builds.
+• PR: #12 | Workflow: .github/workflows/rollback.yml
+
+T05 - SECRET & CONFIG SEPARATION
+--------------------------------
+• Objective: Separate public configuration variables from private credentials.
+• Implementation: Public deploy label (`VITE_PUBLIC_DEPLOY_LABEL`) injected at build time. 
+  Private secrets (`PRIVATE_DEPLOY_TOKEN`, `WEB3FORMS_ACCESS_KEY`) stored exclusively in 
+  GitHub Secrets with zero exposure in client bundles or logs.
+• PR: #2 | File: .github/workflows/ci.yml
+
+T06 - CI GATE BEFORE DEPLOYMENT
+-------------------------------
+• Objective: Gate production deploys behind automated CI checks and artifact generation.
+• Implementation: Workflow (`.github/workflows/ci.yml`) runs Node 20, `npm ci`, `npm run build`, 
+  automated marker security checks, and uploads `site-dist-${sha}` artifact.
+• PR: #11 | Workflow: .github/workflows/ci.yml
+
+T07 - OPENWEATHER API WIDGET
+----------------------------
+• Objective: Integrate dynamic weather data with safe secret handling.
+• Implementation: Built `WeatherWidget.tsx`. Fetch step queries OpenWeather API during 
+  CI build using `OPENWEATHER_API_KEY` secret and generates safe `/api/weather.json`.
+• PR: #14 | Component: team-site/src/components/WeatherWidget.tsx
+
+T08 - REBASE ORGANIZER FEATURE
+------------------------------
+• Objective: Rebase organizer feature branch onto main without losing commit context.
+• Implementation: Rebased `task-assets/rebase-feature` branch onto `main`. Integrated 
+  `LearningVelocity.tsx` analytics component into dashboard.
+• PR: #20 | Component: team-site/src/components/LearningVelocity.tsx
+
+T09 - CONFLICT MERGE WITH BOTH OUTCOMES
+----------------------------------------
+• Objective: Resolve branch merge conflicts preserving all business logic.
+• Implementation: Merged `task-assets/conflict-merge` into `main`. Preserved both 
+  `repo-setup-checkpoint` and `merge-conflict-lab` deadline items in `deadlines.ts`.
+• PR: #25 | Data: team-site/src/data/deadlines.ts
+
+T10 - WEB3FORMS CONTACT SERVICE
+-------------------------------
+• Objective: Implement functional support contact form backed by external provider.
+• Implementation: Created `ContactForm.tsx` and `contactProvider.ts`. Integrated 
+  Web3Forms API key via GitHub Secret `WEB3FORMS_ACCESS_KEY` and added `/status/contact.json`.
+• PR: #13 | Component: team-site/src/components/ContactForm.tsx
+
+T11 - PULL REQUEST PREVIEW DEPLOYMENT
+-------------------------------------
+• Objective: Generate isolated preview evidence for pull requests.
+• Implementation: Created PR Preview workflow (`.github/workflows/preview.yml`) triggering on 
+  `pull_request`. Builds preview artifact `preview-site-dist-${sha}` and posts `$GITHUB_STEP_SUMMARY`.
+• PR: #18, #27 | Workflow: .github/workflows/preview.yml
+
+T12 - FAST DEPENDENCY PIPELINE
+------------------------------
+• Objective: Accelerate CI workflow build times using lockfile dependency caching.
+• Implementation: Configured `actions/setup-node@v4` with `cache: npm` and 
+  `cache-dependency-path: team-site/package-lock.json` while maintaining deterministic `npm ci`.
+• PR: #23 | Workflow: .github/workflows/ci.yml
+
+T13 - FEATURE BUNDLE WITH TESTS
+-------------------------------
+• Objective: Apply feature bundle with release readiness component, tests, and clean markers.
+• Implementation: Integrated `ReleaseReadiness.tsx`, `releaseReadiness.ts`, and validation test 
+  script `check-release-readiness.mjs`. Configured `npm test` step in CI.
+• PR: #22 | Component: team-site/src/components/ReleaseReadiness.tsx
+
+T14 - PRODUCTION DOCKER IMAGE
+-----------------------------
+• Objective: Containerize application using multi-stage production Docker build.
+• Implementation: Created `Dockerfile` (using `node:20-alpine` builder and `nginx:alpine` 
+  runtime). Added automated Docker image build verification step to CI workflow.
+• PR: #24, #28 | File: Dockerfile
+
+T15 - RUNTIME FEATURE FLAG
+--------------------------
+• Objective: Implement toggleable runtime feature flag with safe status exposure.
+• Implementation: Added `FEATURE_SHOW_INSIGHTS` flag handling in `featureFlags.ts` and `App.tsx`. 
+  Exposed redacted flag status in `/status/feature-flags.json`.
+• PR: #21 | Utility: team-site/src/utils/featureFlags.ts
+
+================================================================================
+SECURITY & CODE HYGIENE HIGHLIGHTS
+================================================================================
+1. Zero Hardcoded Secrets: All API tokens, dispatch tokens, and keys are managed via 
+   GitHub Secrets and environment injection.
+2. Automated Marker Scan: CI workflow includes an automated `Verify No Forbidden AI Markers` 
+   step (`git grep -E -i`) to guarantee zero temporary markers in production.
+3. Clean Git History: All feature implementations were completed through structured 
+   git branches (`task/TXX-*`), peer approvals, and clean squashed/merged PRs.
+
+================================================================================
+END OF SUMMARY
+================================================================================
