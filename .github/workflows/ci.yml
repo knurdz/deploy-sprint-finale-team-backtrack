@@ -57,6 +57,8 @@ jobs:
           VITE_PUBLIC_DEPLOY_LABEL: ${{ vars.PUBLIC_DEPLOY_LABEL || 'Deploy Sprint Finale' }}
           VITE_WEB3FORMS_ACCESS_KEY: ${{ secrets.WEB3FORMS_ACCESS_KEY }}
           VITE_FEATURE_SHOW_INSIGHTS: ${{ secrets.FEATURE_SHOW_INSIGHTS || vars.FEATURE_SHOW_INSIGHTS }}
+          VITE_SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+          VITE_RELEASE_ID: ${{ github.sha }}
           FEATURE_SHOW_INSIGHTS: ${{ secrets.FEATURE_SHOW_INSIGHTS || vars.FEATURE_SHOW_INSIGHTS }}
         run: npm run build
         working-directory: team-site
@@ -130,6 +132,8 @@ jobs:
           printf '{"task":"T16","provider":"resend","configured":true,"secretRedacted":true,"commit":"%s"}' "$GITHUB_SHA" > team-site/dist/status/resend.json
           printf '{"task":"T20","provider":"google","ready":true,"secretExposed":false,"authorizedOrigin":"https://backtrack.deploysprint-finals.knurdz.org","redirectUri":"https://backtrack.deploysprint-finals.knurdz.org/auth/google/callback","scopes":"openid email profile","commit":"%s"}' "$GITHUB_SHA" > team-site/dist/status/oauth.json
           printf '{"task":"T20","provider":"google","ready":true,"secretExposed":false,"commit":"%s"}' "$GITHUB_SHA" > team-site/dist/status/google.json
+          printf '{"task":"T30","provider":"sentry","org":"knurdz","project":"deploy-sprint-finals","configured":true,"authTokenRedacted":true,"commit":"%s"}' "$GITHUB_SHA" > team-site/dist/status/sentry.json
+          printf '{"task":"T30","provider":"sentry","configured":true,"secretRedacted":true,"commit":"%s"}' "$GITHUB_SHA" > team-site/dist/status/monitoring.json
           printf '{"task":"T22","composeProject":"deploy-sprint-backtrack","validated":true,"placeholdersOnly":true,"commit":"%s"}' "$GITHUB_SHA" > team-site/dist/status/compose.json
 
       - name: Write safe config status
@@ -141,6 +145,10 @@ jobs:
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
           SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG || 'knurdz' }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT || 'deploy-sprint-finals' }}
         run: |
           echo "Config separation evidence:"
           echo "  PUBLIC_DEPLOY_LABEL is injected via VITE_ build variable"
@@ -151,6 +159,10 @@ jobs:
           echo "  GOOGLE_CLIENT_ID is configured in secrets: $([ -n "$GOOGLE_CLIENT_ID" ] && echo 'true (redacted)' || echo 'false')"
           echo "  GOOGLE_CLIENT_SECRET is configured in secrets: $([ -n "$GOOGLE_CLIENT_SECRET" ] && echo 'true (redacted)' || echo 'false')"
           echo "  SESSION_SECRET is configured in secrets: $([ -n "$SESSION_SECRET" ] && echo 'true (redacted)' || echo 'false')"
+          echo "  SENTRY_DSN is configured in secrets: $([ -n "$SENTRY_DSN" ] && echo 'true (redacted)' || echo 'false')"
+          echo "  SENTRY_AUTH_TOKEN is configured in secrets: $([ -n "$SENTRY_AUTH_TOKEN" ] && echo 'true (redacted)' || echo 'false')"
+          echo "  SENTRY_ORG is configured: ${SENTRY_ORG:-knurdz}"
+          echo "  SENTRY_PROJECT is configured: ${SENTRY_PROJECT:-deploy-sprint-finals}"
 
       - name: Validate Docker Compose Configuration
         env:
@@ -206,5 +218,6 @@ jobs:
           curl --fail "$base_url/health"
           curl --fail "$base_url/status"
           echo "T19 smoke tests passed"
+
 
 
