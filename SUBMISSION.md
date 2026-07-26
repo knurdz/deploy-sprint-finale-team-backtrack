@@ -62,7 +62,7 @@ Use this section for short public notes and links. Full task instructions and ch
 | T25 |  |  |  |
 | T26 |  |  |  |
 | T27 |  |  |  |
-| T28 |  |  |  |
+| T28 | [T28] Race-Safe Idempotent Deploy | .github/workflows/deploy.yml | Implemented race-safe deployment lock (deploy-sprint-backtrack.lock), retry-safe directory operations, and idempotent rerun logs |
 | T29 | [T29] Disaster Recovery From Actions Only | .github/workflows/disaster-recovery.yml | Implemented Actions-only disaster recovery workflow with recovery_ref input, step summary evidence, and zero direct VPS editing |
 | T30 |  |  |  |
 
