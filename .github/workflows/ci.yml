@@ -115,11 +115,19 @@ jobs:
           node scripts/send-email-alert.mjs
         working-directory: team-site
 
+      - name: Verify Turnstile Token & Generate Evidence
+        env:
+          TURNSTILE_SECRET_KEY: ${{ secrets.TURNSTILE_SECRET_KEY }}
+        run: |
+          node scripts/verify-turnstile.mjs
+        working-directory: team-site
+
       - name: Write safe status evidence
         env:
           WEB3FORMS_ACCESS_KEY: ${{ secrets.WEB3FORMS_ACCESS_KEY }}
           FEATURE_SHOW_INSIGHTS: ${{ secrets.FEATURE_SHOW_INSIGHTS || vars.FEATURE_SHOW_INSIGHTS }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          TURNSTILE_SECRET_KEY: ${{ secrets.TURNSTILE_SECRET_KEY }}
         run: |
           rm -rf team-site/dist/status team-site/dist/health
           mkdir -p team-site/dist/status team-site/dist/health
@@ -135,6 +143,7 @@ jobs:
           printf '{"task":"T30","provider":"sentry","org":"knurdz","project":"deploy-sprint-finals","configured":true,"authTokenRedacted":true,"commit":"%s"}' "$GITHUB_SHA" > team-site/dist/status/sentry.json
           printf '{"task":"T30","provider":"sentry","configured":true,"secretRedacted":true,"commit":"%s"}' "$GITHUB_SHA" > team-site/dist/status/monitoring.json
           printf '{"task":"T22","composeProject":"deploy-sprint-backtrack","validated":true,"placeholdersOnly":true,"commit":"%s"}' "$GITHUB_SHA" > team-site/dist/status/compose.json
+          printf '{"task":"T24","provider":"cloudflare-turnstile","siteKeyPublic":true,"secretKeyServerOnly":%s,"secretRedacted":true,"allowedHostname":"backtrack.deploysprint-finals.knurdz.org","commit":"%s"}' "$([ -n "$TURNSTILE_SECRET_KEY" ] && echo 'true' || echo 'false')" "$GITHUB_SHA" > team-site/dist/status/turnstile.json
 
       - name: Write safe config status
         env:
@@ -149,6 +158,7 @@ jobs:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ${{ secrets.SENTRY_ORG || 'knurdz' }}
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT || 'deploy-sprint-finals' }}
+          TURNSTILE_SECRET_KEY: ${{ secrets.TURNSTILE_SECRET_KEY }}
         run: |
           echo "Config separation evidence:"
           echo "  PUBLIC_DEPLOY_LABEL is injected via VITE_ build variable"
@@ -163,6 +173,7 @@ jobs:
           echo "  SENTRY_AUTH_TOKEN is configured in secrets: $([ -n "$SENTRY_AUTH_TOKEN" ] && echo 'true (redacted)' || echo 'false')"
           echo "  SENTRY_ORG is configured: ${SENTRY_ORG:-knurdz}"
           echo "  SENTRY_PROJECT is configured: ${SENTRY_PROJECT:-deploy-sprint-finals}"
+          echo "  TURNSTILE_SECRET_KEY is configured in secrets: $([ -n "$TURNSTILE_SECRET_KEY" ] && echo 'true (redacted)' || echo 'false')"
 
       - name: Validate Docker Compose Configuration
         env:
