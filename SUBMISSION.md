@@ -43,7 +43,7 @@ Use this section for short public notes and links. Full task instructions and ch
 | T11 | #18 | .github/workflows/preview.yml | Configured PR preview workflow publishing preview artifact and workflow summary evidence |
 | T10 | #13 | team-site/src/components/ContactForm.tsx | Integrated Web3Forms contact service with WEB3FORMS_ACCESS_KEY secret |
 | T11 |  |  |  |
-| T12 | Pending | .github/workflows/ci.yml | Configured lockfile-based npm caching using setup-node with cache-dependency-path team-site/package-lock.json and npm ci |
+| T12 | #23 | .github/workflows/ci.yml | Configured lockfile-based npm caching using setup-node with cache-dependency-path team-site/package-lock.json and npm ci |
 | T13 |  |  |  |
 | T14 |  |  |  |
 | T15 | #16 | Safe feature flag evidence | Runtime feature flag FEATURE_SHOW_INSIGHTS integrated with safe redacted status |
