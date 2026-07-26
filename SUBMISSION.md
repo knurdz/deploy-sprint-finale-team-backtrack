@@ -65,6 +65,8 @@ Use this section for short public notes and links. Full task instructions and ch
 | T24 | #49 | team-site/src/components/ContactForm.tsx, team-site/src/utils/turnstile.ts | Protected contact form with Cloudflare Turnstile, verified token in pipeline, and exposed safe Turnstile status evidence |
 | T25 |  |  |  |
 | T24 |  |  |  |
+| T25 |  |  |  |
+| T26 | TBD | .github/workflows/deploy-broken.yml, docs/incidents/broken-deploy-log.md | Recovered from broken deploy rehearsal failure (build vs team-site/dist path mismatch) via Actions recovery workflow |
 | T25 | #45 | team-site/src/utils/metrics.ts | Cherry-picked organizer hotfix commit 91e51ab from task-assets/hotfix applying focused metrics calculation fix |
 | T26 |  |  |  |
 | T27 | #50 | docs/incidents/seeded-secret-leak.md | Removed seeded fake secret leak, integrated automated T27 secret scanner in CI workflow, and documented secret rotation evidence |

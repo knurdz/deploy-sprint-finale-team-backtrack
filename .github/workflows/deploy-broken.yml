@@ -1,0 +1,54 @@
+name: Broken deploy rehearsal
+
+on:
+  workflow_dispatch:
+    inputs:
+      recovery_ref:
+        description: 'Recovery reference (commit SHA or branch)'
+        required: false
+        default: 'main'
+      discovery_ref:
+        description: 'Discovery reference for broken run'
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prepare recovery request
+        env:
+          REF: ${{ github.ref }}
+          RECOVERY_REF: ${{ github.event.inputs.recovery_ref || github.ref }}
+          DISCOVERY_REF: ${{ github.event.inputs.discovery_ref }}
+        run: |
+          test -n "${DISCOVERY_REF:-$RECOVERY_REF}"
+          printf '{"ref": "%s", "recovery_ref": "%s"}' "$REF" "$RECOVERY_REF" > recovery-request.json
+
+      - name: Record recovery step
+        run: echo "T26 Incident recovery through Actions"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: team-site/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: team-site
+
+      - name: Build site
+        run: npm run build
+        working-directory: team-site
+
+      - name: Upload deployment artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: broken-deploy-output
+          path: team-site/dist
