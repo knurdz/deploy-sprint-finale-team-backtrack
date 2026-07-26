@@ -1,0 +1,6 @@
+node_modules
+team-site/node_modules
+team-site/dist
+.git
+.env
+.env.local

@@ -45,7 +45,7 @@ Use this section for short public notes and links. Full task instructions and ch
 | T11 |  |  |  |
 | T12 |  |  |  |
 | T13 |  |  |  |
-| T14 |  |  |  |
+| T14 | #18 | team-site/Dockerfile | Created multi-stage production Dockerfile using node:20-alpine and nginx:alpine |
 | T15 |  |  |  |
 | T16 |  |  |  |
 | T17 |  |  |  |
