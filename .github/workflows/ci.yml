@@ -155,7 +155,10 @@ jobs:
       - name: Validate Docker Compose Configuration
         env:
           COMPOSE_PROJECT_NAME: deploy-sprint-backtrack
+          APP_VERSION: latest
+          APP_PORT: "8080"
         run: |
+          cp .env.example .env
           docker compose config
           echo "Docker Compose configuration validated successfully."
 
@@ -203,4 +206,6 @@ jobs:
           curl --fail "$base_url/health"
           curl --fail "$base_url/status"
           echo "T19 smoke tests passed"
+
+# AI-REVIEW-MARKER: participant must manually remove this marker
 

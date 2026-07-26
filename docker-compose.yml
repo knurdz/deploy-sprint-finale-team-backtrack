@@ -2,9 +2,9 @@ name: deploy-sprint-backtrack
 
 services:
   team-site:
-    image: deploy-sprint/team-site:${APP_VERSION}
+    image: deploy-sprint/team-site:${APP_VERSION:-latest}
     restart: unless-stopped
     ports:
-      - "${APP_PORT}:80"
+      - "${APP_PORT:-8080}:80"
     env_file:
       - .env
