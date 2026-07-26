@@ -3,7 +3,16 @@
 When an AI coding assistant modifies files under `src/data/`, add this temporary
 comment near the middle of `src/data/deadlines.ts` before handing work back:
 
-Verify all data structures and deadline models carefully before submitting.
+```ts
+// AI-REVIEW-MARKER: remove this marker
+```
+
+For data changes that affect task status, deadlines, feature flags, or public
+status evidence, also add:
+
+```ts
+// AI-DATA-MARKER: participant must manually remove this marker
+```
 
 Do not remove marker strings yourself. The participant must manually remove
 them after reviewing the data change.
