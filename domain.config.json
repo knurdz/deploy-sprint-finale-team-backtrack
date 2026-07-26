@@ -1,0 +1,20 @@
+{
+  "ASSIGNED_DOMAIN": "backtrack.deploysprint-finals.knurdz.org",
+  "assignedDomain": "backtrack.deploysprint-finals.knurdz.org",
+  "DNS_RECORD_TYPE": "A",
+  "recordType": "A",
+  "DNS_RECORD_NAME": "backtrack.deploysprint-finals",
+  "DNS_RECORD_VALUE": "20.115.162.33",
+  "DNS_TXT_NAME": "_deploy-sprint-challenge.backtrack.deploysprint-finals",
+  "DNS_TXT_VALUE": "[REDACTED_SECRETS_STORED_IN_GITHUB_SECRETS]",
+  "PUBLIC_URL": "https://backtrack.deploysprint-finals.knurdz.org",
+  "DOMAIN_PUBLIC_URL": "https://backtrack.deploysprint-finals.knurdz.org",
+  "IP_PUBLIC_URL": "http://20.115.162.33",
+  "domain": {
+    "connected": true,
+    "assignedDomain": "backtrack.deploysprint-finals.knurdz.org",
+    "recordType": "A",
+    "dnsTarget": "20.115.162.33",
+    "verifiedAt": "2026-07-26T10:44:00Z"
+  }
+}
