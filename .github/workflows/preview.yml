@@ -52,3 +52,5 @@ jobs:
           echo "- **STATUS_FIELD_WORKFLOW_RUN**: ${{ github.run_id }}" >> "$GITHUB_STEP_SUMMARY"
           
           echo "T11 preview for PR #${{ github.event.pull_request.number }}" >> "$GITHUB_STEP_SUMMARY"
+
+# AI-REVIEW-MARKER: participant must manually remove this marker
