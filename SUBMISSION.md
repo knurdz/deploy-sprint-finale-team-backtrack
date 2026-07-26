@@ -65,6 +65,8 @@ Use this section for short public notes and links. Full task instructions and ch
 | T28 |  |  |  |
 | T29 |  |  |  |
 | T30 | #40 | team-site/src/utils/sentry.ts | Integrated @sentry/react monitoring SDK with SENTRY_DSN, SENTRY_AUTH_TOKEN, SENTRY_ORG (knurdz), and SENTRY_PROJECT (deploy-sprint-finals) |
+| T29 | [T29] Disaster Recovery From Actions Only | .github/workflows/disaster-recovery.yml | Implemented Actions-only disaster recovery workflow with recovery_ref input, step summary evidence, and zero direct VPS editing |
+| T30 |  |  |  |
 
 ## Public Notes
 
